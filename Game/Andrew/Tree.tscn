@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://csn0m63ex4cr2"]
+
+[ext_resource type="Script" path="res://Andrew/Tree.cs" id="1_e32qu"]
+[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="2_cxied"]
+
+[node name="Tree" type="Node2D"]
+script = ExtResource("1_e32qu")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.701961)
+texture = ExtResource("2_cxied")
+
+[node name="Bounds" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+
+[node name="Spawner" type="ShapeCast2D" parent="."]
+unique_name_in_owner = true
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, 0)
+max_results = 1
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Nav" type="NavigationObstacle2D" parent="."]
+unique_name_in_owner = true

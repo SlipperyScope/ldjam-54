@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cox3vu8dnk8q4"]
+[gd_scene load_steps=5 format=3 uid="uid://cox3vu8dnk8q4"]
 
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="1_e7xxw"]
 [ext_resource type="Script" path="res://Andrew/Andrew.cs" id="1_fru1u"]
+[ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="3_7ht5i"]
+[ext_resource type="Resource" uid="uid://brlnjhpu66hnr" path="res://Andrew/TestTreeConfig.tres" id="4_wcy00"]
 
 [node name="Andrew" type="Node2D"]
 script = ExtResource("1_fru1u")
@@ -11,3 +13,7 @@ texture = ExtResource("1_e7xxw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.3, 0.3)
+
+[node name="Tree" parent="." instance=ExtResource("3_7ht5i")]
+position = Vector2(-1671, -837)
+Config = ExtResource("4_wcy00")
