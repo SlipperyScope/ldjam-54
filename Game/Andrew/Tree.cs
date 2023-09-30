@@ -69,7 +69,7 @@ public partial class Tree : Node2D
     {
         PhysicsTime += delta;
 
-        if (PhysicsTime >= NextSpawnAttempt && InBounds(GlobalPosition) is true)
+        if (Spawner.Enabled && PhysicsTime >= NextSpawnAttempt && InBounds(GlobalPosition) is true)
         {
             for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
             {
@@ -127,7 +127,7 @@ public partial class Tree : Node2D
 
     public void InputEvent(Node viewpport, InputEvent @event, long shapeIdx)
     {
-		if (@event is InputEventMouseButton eventMouseButton)
+		if (@event is InputEventMouseButton eventMouseButton && Health > 0)
 		{
 			if (eventMouseButton.IsReleased()) {
                 this.Global().SetTargetTree(this);
@@ -141,6 +141,9 @@ public partial class Tree : Node2D
         Health -= damage;
         if (Health <= 0)
         {
+            Sprite.Texture = Config.StumpTexture;
+            Nav.Radius = Config.StumpNavObstacleRadius;
+            Spawner.Enabled = false;
             //kill tree
         }
         return Health <= 0;

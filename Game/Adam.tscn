@@ -1,15 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://cphjvbyftniah"]
+[gd_scene load_steps=11 format=3 uid="uid://cphjvbyftniah"]
 
 [ext_resource type="Script" path="res://Adam.cs" id="1_8xl31"]
 [ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_cy2hk"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="5_cg6op"]
+[ext_resource type="Texture2D" uid="uid://c6855db6cpp0h" path="res://art/stump.png" id="5_wp350"]
 [ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="6_dfk5q"]
-[ext_resource type="Resource" uid="uid://p56udk8htcdq" path="res://adamJunk/TestTreeConfig.tres" id="6_e01nj"]
+[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="6_yfe36"]
+[ext_resource type="Script" path="res://Andrew/TreeConfig.cs" id="7_fxpdi"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_c2xr1"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hmoi"]
+radius = 150.0
+
+[sub_resource type="Resource" id="Resource_ixocl"]
+script = ExtResource("7_fxpdi")
+Name = "Test Tree"
+_SpawnRange = {
+"R": 600.0,
+"r": 350.0
+}
+Texture = ExtResource("6_yfe36")
+StumpTexture = ExtResource("5_wp350")
+CollisionShape = SubResource("CircleShape2D_2hmoi")
+SpawnAttempts = 1
+SpawnInterval = 5.0
+SaplingScene = ExtResource("6_dfk5q")
+NavObstacleRadius = 200.0
+StumpNavObstacleRadius = 100.0
 
 [node name="Adam" type="Node2D"]
 script = ExtResource("1_8xl31")
@@ -31,5 +52,5 @@ position = Vector2(400, -120)
 vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
 
 [node name="Tree" parent="." instance=ExtResource("6_dfk5q")]
-position = Vector2(-580, -263)
-Config = ExtResource("6_e01nj")
+position = Vector2(-729, -28)
+Config = SubResource("Resource_ixocl")

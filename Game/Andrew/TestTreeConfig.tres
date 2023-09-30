@@ -20,3 +20,4 @@ SpawnAttempts = 1
 SpawnInterval = 5.0
 SaplingScene = ExtResource("1_horp1")
 NavObstacleRadius = 200.0
+StumpNavObstacleRadius = 100.0

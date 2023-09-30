@@ -38,7 +38,7 @@ public partial class Player : CharacterBody2D
                 GD.Print("chop");
                 if (targetTree.DoAHit(axeDamage)) {
                     GD.Print("tree felled!");
-                    targetTree.CallDeferred("queue_free"); //should eventually change to stump and stop spawning
+                   // targetTree.CallDeferred("queue_free"); //should eventually change to stump and stop spawning
                     targetTree = null;
                 }
                 chopping = false;
