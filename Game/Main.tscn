@@ -1,6 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=7 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
+[ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
+[ext_resource type="Script" path="res://GamJamScripts/Player.cs" id="3_ypu86"]
+[ext_resource type="Texture2D" uid="uid://67d4jp0baibx" path="res://art/player.png" id="4_krtps"]
+[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="6_m30y2"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
+vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)])
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vygcg")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(3, 1)
+navigation_polygon = SubResource("NavigationPolygon_5f7bl")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_21owk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(60.565, 35.19)
+scale = Vector2(0.256065, 0.256065)
+script = ExtResource("3_ypu86")
+
+[node name="PlayerSprite" type="Sprite2D" parent="Player"]
+rotation = 1.5708
+texture = ExtResource("4_krtps")
+
+[node name="PlayerNav" type="NavigationAgent2D" parent="Player"]
+path_postprocessing = 1
+avoidance_enabled = true
+max_speed = 300.0
+
+[node name="MoveArea" type="NavigationObstacle2D" parent="."]
+position = Vector2(400, -120)
+vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
+
+[node name="TreeObstacle" type="NavigationObstacle2D" parent="."]
+position = Vector2(-745, 238)
+radius = 205.0
+
+[node name="Sprite2D" type="Sprite2D" parent="TreeObstacle"]
+texture = ExtResource("6_m30y2")
+
+[node name="TreeObstacle" type="NavigationObstacle2D" parent="TreeObstacle"]
+position = Vector2(1492, -280)
+radius = 205.0
+
+[node name="Sprite2D" type="Sprite2D" parent="TreeObstacle/TreeObstacle"]
+texture = ExtResource("6_m30y2")
