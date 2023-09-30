@@ -12,10 +12,29 @@ namespace Game;
 /// </summary>
 public partial class Global : Node
 {
+    public DateTime startTime;
+    public DateTime endTime;
+    public bool isRunning = false;
+
     /// <summary>
     /// Testing
     /// </summary>
     public void HelloWorld() => GD.Print("Hello World");
+
+    public void StartGame() {
+        // Clear last game state (spawned trees, inventory, etc) here
+        startTime = DateTime.Now;
+        isRunning = true;
+    }
+
+    public void EndGame() {
+        endTime = DateTime.Now;
+        isRunning = false;
+    }
+
+    public TimeSpan gameDuration {
+        get => isRunning ? DateTime.Now - startTime : endTime - startTime;
+    }
 }
 
 /// <summary>

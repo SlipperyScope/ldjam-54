@@ -1,12 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://cphjvbyftniah"]
+[gd_scene load_steps=6 format=3 uid="uid://cphjvbyftniah"]
 
 [ext_resource type="Script" path="res://Adam.cs" id="1_8xl31"]
+[ext_resource type="Script" path="res://adamJunk/movement.cs" id="2_5g3m6"]
 [ext_resource type="Texture2D" uid="uid://cql150uiqlbh0" path="res://art/placeholder/player.png" id="2_85pba"]
+[ext_resource type="Texture2D" uid="uid://br35q4luiym4m" path="res://icon.svg" id="4_gxq70"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_c2xr1"]
+vertices = PackedVector2Array(-4, 0, 1150, -1, 1153, 652, -3, 649)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-4, 0, 1150, -1, 1153, 652, -3, 649)])
 
 [node name="Adam" type="Node2D"]
 script = ExtResource("1_8xl31")
 
-[node name="Player" type="Sprite2D" parent="."]
-position = Vector2(175, 163)
-scale = Vector2(0.313333, 0.313333)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(3, 1)
+navigation_polygon = SubResource("NavigationPolygon_c2xr1")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(60.565, 35.19)
+scale = Vector2(0.256065, 0.256065)
+script = ExtResource("2_5g3m6")
+
+[node name="PlayerSprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("2_85pba")
+
+[node name="PlayerNav" type="NavigationAgent2D" parent="Player"]
+path_postprocessing = 1
+avoidance_enabled = true
+max_speed = 300.0
+debug_enabled = true
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="."]
+position = Vector2(691, 241)
+radius = 89.84
+
+[node name="Sprite2D" type="Sprite2D" parent="NavigationObstacle2D2"]
+scale = Vector2(1.13912, 1.13912)
+texture = ExtResource("4_gxq70")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(281, 212)
+radius = 89.84
+
+[node name="Sprite2D" type="Sprite2D" parent="NavigationObstacle2D"]
+scale = Vector2(1.13912, 1.13912)
+texture = ExtResource("4_gxq70")
