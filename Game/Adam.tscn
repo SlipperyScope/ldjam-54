@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cphjvbyftniah"]
+[gd_scene load_steps=7 format=3 uid="uid://cphjvbyftniah"]
 
 [ext_resource type="Script" path="res://Adam.cs" id="1_8xl31"]
-[ext_resource type="Script" path="res://adamJunk/movement.cs" id="2_5g3m6"]
-[ext_resource type="Texture2D" uid="uid://cql150uiqlbh0" path="res://art/placeholder/player.png" id="2_85pba"]
+[ext_resource type="Script" path="res://adamJunk/Player.cs" id="3_bigk3"]
 [ext_resource type="Texture2D" uid="uid://br35q4luiym4m" path="res://icon.svg" id="4_gxq70"]
+[ext_resource type="Texture2D" uid="uid://67d4jp0baibx" path="res://art/player.png" id="4_sigyn"]
+[ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="5_cg6op"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_c2xr1"]
-vertices = PackedVector2Array(-4, 0, 1150, -1, 1153, 652, -3, 649)
+vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-4, 0, 1150, -1, 1153, 652, -3, 649)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)])
 
 [node name="Adam" type="Node2D"]
 script = ExtResource("1_8xl31")
@@ -17,22 +18,28 @@ script = ExtResource("1_8xl31")
 position = Vector2(3, 1)
 navigation_polygon = SubResource("NavigationPolygon_c2xr1")
 
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("5_cg6op")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)
+
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(60.565, 35.19)
 scale = Vector2(0.256065, 0.256065)
-script = ExtResource("2_5g3m6")
+script = ExtResource("3_bigk3")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Player"]
-texture = ExtResource("2_85pba")
+rotation = 1.5708
+texture = ExtResource("4_sigyn")
 
 [node name="PlayerNav" type="NavigationAgent2D" parent="Player"]
 path_postprocessing = 1
 avoidance_enabled = true
 max_speed = 300.0
-debug_enabled = true
 
 [node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="."]
-position = Vector2(691, 241)
+position = Vector2(-870, 638)
 radius = 89.84
 
 [node name="Sprite2D" type="Sprite2D" parent="NavigationObstacle2D2"]
@@ -46,3 +53,7 @@ radius = 89.84
 [node name="Sprite2D" type="Sprite2D" parent="NavigationObstacle2D"]
 scale = Vector2(1.13912, 1.13912)
 texture = ExtResource("4_gxq70")
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="."]
+position = Vector2(400, -120)
+vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)

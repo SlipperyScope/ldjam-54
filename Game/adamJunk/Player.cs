@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class movement : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	private NavigationAgent2D nav;
 	int speed = 300;
@@ -12,17 +12,19 @@ public partial class movement : CharacterBody2D
 	{
 		nav = GetNode<NavigationAgent2D>("PlayerNav");
 		nav.VelocityComputed += Move;
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (GlobalPosition.DistanceTo(nav.TargetPosition) > 10) {
-			var direction = new Vector2();
-			direction = nav.GetNextPathPosition() - GlobalPosition;
+		if (GetGlobalTransformWithCanvas().Origin.DistanceTo(nav.TargetPosition) > 10) {
+			Vector2 direction = nav.GetNextPathPosition() - GetGlobalTransformWithCanvas().Origin;
 			direction = direction.Normalized();
 			Velocity = Velocity.Lerp(direction * speed, (float)(accel * delta));
 			nav.Velocity = Velocity;
+		} else {
+			nav.Velocity = new Vector2(0, 0);
 		}
 	}
 
@@ -31,7 +33,6 @@ public partial class movement : CharacterBody2D
 		if (@event is InputEventMouseButton eventMouseButton)
 		{
 			if (eventMouseButton.IsReleased()) {
-				GD.Print("Mousce click at: ", eventMouseButton.Position);
 				nav.TargetPosition = eventMouseButton.Position;
 			}
 		}
@@ -41,6 +42,8 @@ public partial class movement : CharacterBody2D
 	{
 		Velocity = navVelocity;
 		MoveAndSlide();
-		Rotation = Velocity.Angle();
+		if (Velocity.X != 0 || Velocity.Y != 0) {
+			Rotation = Velocity.Angle();
+		}
 	}
 }
