@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://w4vghr15lnc"]
+
+[ext_resource type="Script" path="res://GamJamScripts/Player.cs" id="1_21lx6"]
+[ext_resource type="Texture2D" uid="uid://67d4jp0baibx" path="res://art/player.png" id="2_tc1x4"]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(60.565, 35.19)
+scale = Vector2(0.256065, 0.256065)
+script = ExtResource("1_21lx6")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_tc1x4")
+
+[node name="PlayerNav" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+max_speed = 300.0

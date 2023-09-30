@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
-[ext_resource type="Script" path="res://GamJamScripts/Player.cs" id="3_ypu86"]
-[ext_resource type="Texture2D" uid="uid://67d4jp0baibx" path="res://art/player.png" id="4_krtps"]
-[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="6_m30y2"]
+[ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="3_83kts"]
+[ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_l4o8g"]
+[ext_resource type="Resource" uid="uid://p56udk8htcdq" path="res://adamJunk/TestTreeConfig.tres" id="6_a88iv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
@@ -24,34 +24,12 @@ texture = ExtResource("2_21owk")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.3, 0.3)
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(60.565, 35.19)
-scale = Vector2(0.256065, 0.256065)
-script = ExtResource("3_ypu86")
-
-[node name="PlayerSprite" type="Sprite2D" parent="Player"]
-rotation = 1.5708
-texture = ExtResource("4_krtps")
-
-[node name="PlayerNav" type="NavigationAgent2D" parent="Player"]
-path_postprocessing = 1
-avoidance_enabled = true
-max_speed = 300.0
+[node name="Player" parent="." instance=ExtResource("3_l4o8g")]
 
 [node name="MoveArea" type="NavigationObstacle2D" parent="."]
 position = Vector2(400, -120)
 vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
 
-[node name="TreeObstacle" type="NavigationObstacle2D" parent="."]
-position = Vector2(-745, 238)
-radius = 205.0
-
-[node name="Sprite2D" type="Sprite2D" parent="TreeObstacle"]
-texture = ExtResource("6_m30y2")
-
-[node name="TreeObstacle" type="NavigationObstacle2D" parent="TreeObstacle"]
-position = Vector2(1492, -280)
-radius = 205.0
-
-[node name="Sprite2D" type="Sprite2D" parent="TreeObstacle/TreeObstacle"]
-texture = ExtResource("6_m30y2")
+[node name="Tree" parent="." instance=ExtResource("3_83kts")]
+position = Vector2(-1590, -795)
+Config = ExtResource("6_a88iv")
