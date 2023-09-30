@@ -1,3 +1,4 @@
+using Game;
 using Godot;
 using System;
 using System.Diagnostics;
@@ -14,5 +15,15 @@ public partial class Michael : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		GetNode<RichTextLabel>("GameTime").Text = $"Game Time: {this.Global().gameDuration}";
 	}
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed) {
+			if (keyEvent.Keycode == Key.S) this.Global().StartGame();
+			if (keyEvent.Keycode == Key.E) this.Global().EndGame();
+		}
+    }
 }
