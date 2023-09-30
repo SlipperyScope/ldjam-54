@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cch5li15ghn3v"]
+
+[ext_resource type="Texture2D" uid="uid://cql150uiqlbh0" path="res://art/placeholder/player.png" id="1_mprmr"]
+[ext_resource type="Script" path="res://Michael.cs" id="1_u0sim"]
+
+[node name="Michael" type="Node2D"]
+position = Vector2(527, 332)
+script = ExtResource("1_u0sim")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(-222, 33)
+scale = Vector2(0.313333, 0.313333)
+texture = ExtResource("1_mprmr")
