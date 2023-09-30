@@ -7,6 +7,7 @@ namespace Game;
 public partial class Player : CharacterBody2D
 {
     private NavigationAgent2D nav;
+    private AudioStreamPlayer2D chopSfx;
     int speed = 300;
     float accel = 7.0f;
 
@@ -22,6 +23,7 @@ public partial class Player : CharacterBody2D
         this.Global().SetPlayer(this);
         nav = GetNode<NavigationAgent2D>("PlayerNav");
         nav.VelocityComputed += Move;
+        chopSfx = GetNode<AudioStreamPlayer2D>("ChopSfx");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +37,7 @@ public partial class Player : CharacterBody2D
                 chopping = true;
                 //start animation?
                 await ToSignal(GetTree().CreateTimer(axeTime), "timeout");
+                chopSfx.Play();
                 GD.Print("chop");
                 if (targetTree.DoAHit(axeDamage)) {
                     GD.Print("tree felled!");
