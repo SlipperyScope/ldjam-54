@@ -7,8 +7,8 @@ public partial class Adam : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var pos = GetNode<Sprite2D>("Player").Position;
-		Debug.WriteLine($"Coordinates (X: {pos.X}, Y: {pos.Y})");
+		//var pos = GetNode<Sprite2D>("Player").Position;
+		//Debug.WriteLine($"Coordinates (X: {pos.X}, Y: {pos.Y})");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
