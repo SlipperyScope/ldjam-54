@@ -4,3 +4,4 @@
 
 [node name="TreeSpawner" type="Node2D"]
 script = ExtResource("1_ak27c")
+SpawnInterval = 1.5

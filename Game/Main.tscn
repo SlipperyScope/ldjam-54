@@ -42,4 +42,4 @@ autoplay = true
 Stumptown = NodePath("../Stumptown")
 
 [node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
-position = Vector2(-1949, -1160)
+position = Vector2(8, -1118)

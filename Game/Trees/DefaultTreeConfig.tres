@@ -17,4 +17,4 @@ SpawnAttempts = 10
 Minimum = 350.0
 Maximum = 600.0
 Stump = ExtResource("1_kqwtu")
-HitPoints = 3.0
+HitPoints = 4.0
