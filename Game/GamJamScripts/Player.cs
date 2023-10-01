@@ -95,6 +95,7 @@ public partial class Player : CharacterBody2D
             if (!chopping)
             {
                 chopping = true;
+                GlobalRotation = pos.AngleToPoint(targetTree.GetGlobalTransformWithCanvas().Origin);
                 Tween tween = GetTree().CreateTween();
                 tween.TweenProperty(axeSprite, "visible", true, 0);
                 tween.TweenProperty(axeSprite, "rotation_degrees", 0, Axe.getSwingTime());
@@ -115,6 +116,7 @@ public partial class Player : CharacterBody2D
         }
 
         if (fishIntent && pos.DistanceTo(nav.TargetPosition) < 50) {
+            GlobalRotation = pos.AngleToPoint(nav.TargetPosition);
             fishing = true;
             fishIntent = false;
             GetNode<Sprite2D>("FishingPole").Visible = true;
