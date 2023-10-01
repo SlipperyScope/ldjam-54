@@ -74,6 +74,7 @@ public partial class TreeConfig : Resource
     [Export]
     public Double SpawnInterval { get; private set; } = 1d;
 
+    // TODO: Change to sapling config
     /// <summary>
     /// Scene template for saplings
     /// </summary>

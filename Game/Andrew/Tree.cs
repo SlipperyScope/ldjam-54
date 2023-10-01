@@ -14,6 +14,11 @@ namespace Game.Andrew;
 public partial class Tree : Node2D
 {
     /// <summary>
+    /// Notifies that a tree is attempting to plant a sapling
+    /// </summary>
+    public event EventHandler<SaplingPlantedEventArgs> SaplingPlanted;
+
+    /// <summary>
     /// Tree config resource
     /// </summary>
     [Export]
@@ -49,47 +54,70 @@ public partial class Tree : Node2D
         
         Bounds.GetNode<CollisionShape2D>("CollisionShape2D").Shape = Config.CollisionShape;
 
+        // TODO: Non-circle obstacle? = use collision shape
         Nav.Radius = Config.NavObstacleRadius;
 
         Spawner.Enabled = true;
         Spawner.Shape = Config.CollisionShape;
         Spawner.TargetPosition = new();
 
-        NextSpawnAttempt = Config.SpawnInterval;
+        //NextSpawnAttempt = Config.SpawnInterval;
     }
 
     // TODO: Move spawning to level
     // TODO: Either never allow two spawns in one physics frame or queue them and remove one of any pair that overlap
     public override void _PhysicsProcess(Double delta)
     {
-        PhysicsTime += delta;
+        //PhysicsTime += delta;
 
-        if (PhysicsTime >= NextSpawnAttempt && InBounds(GlobalPosition) is true)
-        {
-            for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
-            {
-                Spawner.Position =  RandomSpawnPosition();
-                Spawner.ForceShapecastUpdate();
+        //if (PhysicsTime >= NextSpawnAttempt && InBounds(GlobalPosition) is true)
+        //{
+        //    for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
+        //    {
+        //        Spawner.Position =  RandomSpawnPosition();
+        //        Spawner.ForceShapecastUpdate();
 
-                if (Spawner.IsColliding() is false && InBounds(Spawner.GlobalPosition))
-                {
-                    SpawnSapling(Spawner.GlobalPosition);
-                    //Hits.Add(Spawner.Position);
-                    //QueueRedraw();
-                    NextSpawnAttempt += Config.SpawnInterval;
+        //        if (Spawner.IsColliding() is false && InBounds(Spawner.GlobalPosition))
+        //        {
+        //            SpawnSapling(Spawner.GlobalPosition);
+        //            //Hits.Add(Spawner.Position);
+        //            //QueueRedraw();
+        //            NextSpawnAttempt += Config.SpawnInterval;
 
-                    // return; // <--- NOTE
-                    break;
-                }
-            }
+        //            // return; // <--- NOTE
+        //            break;
+        //        }
+        //    }
 
-            NextSpawnAttempt += Config.SpawnInterval;
+        //    NextSpawnAttempt += Config.SpawnInterval;
 
             //GD.Print("aborted spawn attempt");
-        }
+        //}
     }
 
-    private static Boolean InBounds(Vector2 position) => position.X is > -1920 and < 1920 && position.Y is > -1080 and < 500;
+    //public void Spread()
+    public SaplingPlantedEventArgs Spread()
+    {
+        for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
+        {
+            Spawner.Position = RandomSpawnPosition();
+            Spawner.ForceShapecastUpdate();
+            var worldPosition = Position + Spawner.Position;
+
+            // TODO: Move conditions checking to configuration (out of scope)
+
+            if (Spawner.IsColliding() is false && InBounds(Spawner) is true)
+            {
+                //SaplingPlanted?.Invoke(this, new(worldPosition, GD.Randf() * Mathf.Tau, new(Config)));
+                return new(worldPosition, GD.Randf() * Mathf.Tau, new(Config));
+                //break;
+            }
+        }
+
+        return null;
+    }
+
+    private static Boolean InBounds(Node2D node) => node.GlobalPosition.X is > -1920 and < 1920 && node.GlobalPosition.Y is > -1080 and < 500; //500 is apprx the shoreline. G-G-G-GAME JAM
 
     private void SpawnSapling(Vector2 globalPosition)
     {
@@ -132,4 +160,37 @@ public partial class Tree : Node2D
     //        DrawCircle(hit, 150, new Color("00FF0022"));
     //    }
     //}
+}
+
+/// <summary>
+/// Arguments for a make tree event
+/// </summary>
+public class SaplingPlantedEventArgs : EventArgs
+{
+    /// <summary>
+    /// Position in the same worldspace as the tree
+    /// </summary>
+    public Vector2 Position { get; init; }
+
+    /// <summary>
+    /// Rotation in the same worldspace as the tree
+    /// </summary>
+    public Single Rotation { get; init; }
+
+    /// <summary>
+    /// Buider for the sapling
+    /// </summary>
+    public TreeBuilder Builder { get; init; }
+
+    /// <summary>
+    /// Creates new sapling planted event args
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="rotation"></param>
+    public SaplingPlantedEventArgs(Vector2 position, Single rotation, TreeBuilder builder)
+    {
+        Position = position;
+        Rotation = rotation;
+        Builder = builder;
+    }
 }
