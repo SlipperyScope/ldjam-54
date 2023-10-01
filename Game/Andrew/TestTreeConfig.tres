@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=5 format=3 uid="uid://brlnjhpu66hnr"]
 
 [ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="1_horp1"]
+[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="1_p6vgo"]
 [ext_resource type="Script" path="res://Andrew/TreeConfig.cs" id="2_1f756"]
-[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="2_bqh6u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7c5r"]
 radius = 150.0
@@ -14,7 +14,7 @@ _SpawnRange = {
 "R": 600.0,
 "r": 350.0
 }
-Texture = ExtResource("2_bqh6u")
+Texture = ExtResource("1_p6vgo")
 CollisionShape = SubResource("CircleShape2D_x7c5r")
 SpawnAttempts = 10
 SpawnInterval = 5.0
