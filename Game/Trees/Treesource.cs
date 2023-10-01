@@ -75,5 +75,17 @@ public partial class Treesource : Resource
     /// Amount of hits a tree can take before dying
     /// </summary>
     [Export, ExportGroup(Life)]
-    public Single HitPoints { get; private set; } = 100f;
+    public Single HitPoints { get; private set; } = 4f;
+
+    /// <summary>
+    /// Amount of hit points the sapling starts with
+    /// </summary>
+    [Export]
+    public Single HitPointsAtSpawn { get; private set; } = 1f;
+
+    /// <summary>
+    /// Amount of hit points a tree gains per second when it spawns until it is at max
+    /// </summary>
+    [Export]
+    public Single GrowthRate { get; private set; } = 1f;
 }

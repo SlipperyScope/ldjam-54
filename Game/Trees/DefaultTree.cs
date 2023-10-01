@@ -41,13 +41,28 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     private ShapeCast2D Seedler;
     private NavigationObstacle2D Obstacle;
     private Single HitsRemaining;
+    private Boolean Growing = true;
 
     public override void _EnterTree()
     {
         _ = Config ?? throw new NullReferenceException(nameof(Config));
         TreeName ??= Config.Name;
-        HitsRemaining = Config.HitPoints;
+        HitsRemaining = Config.HitPointsAtSpawn;
         this.Global().Beat += Wiggle;
+    }
+
+    public override void _Process(Double delta)
+    {
+        if (Growing is true && HitsRemaining < Config.HitPoints)
+        {
+            HitsRemaining += Config.GrowthRate * (Single)delta;
+            UpdateSprite();
+            if (HitsRemaining > Config.HitPoints)
+            {
+                HitsRemaining = Config.HitPoints;
+                Growing = false;
+            }
+        }
     }
 
     private void Wiggle(Object sender, EventArgs e)
@@ -76,6 +91,8 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
     public Seed Spread()
     {
+        if (Growing is true) return null;
+
         for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
         {
             Seedler.Enabled = true;
@@ -148,8 +165,9 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     private void UpdateSprite()
     {
         var ratio = HitsRemaining / Config.HitPoints;
-        var frame = (Int32)MathF.Ceiling((1 - ratio) * HitStates) - 1;
-        Sprite.Frame = frame;
+        //var frame = (Int32)MathF.Ceil((1 - ratio) * HitStates) - 1;
+        var frame = HitStates - HitStates * ratio;
+        Sprite.Frame = (Int32)Mathf.Round(frame);
     }
 
     public Node2D AsNode => this; 

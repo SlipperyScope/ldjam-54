@@ -18,3 +18,5 @@ Minimum = 350.0
 Maximum = 600.0
 Stump = ExtResource("1_kqwtu")
 HitPoints = 4.0
+HitPointsAtSpawn = 1.0
+GrowthRate = 1.0
