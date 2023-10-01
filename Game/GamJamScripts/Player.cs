@@ -13,7 +13,7 @@ public partial class Player : CharacterBody2D
     int speed = 300;
     float accel = 7.0f;
 
-    bool chopping = false;
+    public bool chopping = false;
     int axeDamage = 1;
     float axeTime = 1.0f;
 
@@ -58,7 +58,7 @@ public partial class Player : CharacterBody2D
             }
         }
 
-        if (pos.DistanceTo(nav.TargetPosition) > 10)
+        if (!chopping && pos.DistanceTo(nav.TargetPosition) > 10)
         {
             Vector2 direction = nav.GetNextPathPosition() - pos;
             direction = direction.Normalized();
@@ -71,11 +71,17 @@ public partial class Player : CharacterBody2D
         }
     }
 
+    public void SetTarget(CanvasItem target) {
+        if (!chopping) {
+            targetTree = target;
+        }
+    }
+
     public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton eventMouseButton)
         {
-            if (eventMouseButton.IsReleased())
+            if (eventMouseButton.IsReleased() && !chopping)
             {
                 targetTree = null;
                 nav.TargetPosition = eventMouseButton.Position;

@@ -67,13 +67,13 @@ public partial class Global : Node
     public void SetTargetTree(Game.Andrew.Tree tree)
     {
         if (player != null) {
-            player.targetTree = tree;
+            player.SetTarget(tree);
         }
     }
 
     public void SetTarget(ITargetable target)
     {
-        if (player is not null)
+        if (player is not null && !player.chopping) //I know, bad, but game jam
         {
             player.targetTree = target as CanvasItem ?? throw new InvalidCastException();
         }
