@@ -22,6 +22,7 @@ public partial class Player : CharacterBody2D
     private double fishDelta = 0f;
 
     public bool chopping = false;
+    public bool cancelChop = false;
     public bool fishIntent = false; // The ocean was clicked
     public bool fishing = false; // Fishing is happening
 
@@ -103,14 +104,18 @@ public partial class Player : CharacterBody2D
                 tween.TweenProperty(axeSprite, "rotation_degrees", -90, 0);
 
                 await ToSignal(GetTree().CreateTimer(Axe.getSwingTime()), "timeout");
-                chopSfx.PitchScale = (Single)GD.RandRange(0.95d, 1.05d);
-                chopSfx.Play();
-                GD.Print("chop");
-                if ((targetTree as ITree).DoAHit(Axe.GetDamage())) {
-                    GD.Print("tree felled!");
-                   // targetTree.CallDeferred("queue_free"); //should eventually change to stump and stop spawning
-                    targetTree = null;
+                if (!cancelChop)
+                {
+                    chopSfx.PitchScale = (Single)GD.RandRange(0.95d, 1.05d);
+                    chopSfx.Play();
+                    GD.Print("chop");
+                    if ((targetTree as ITree).DoAHit(Axe.GetDamage())) {
+                        GD.Print("tree felled!");
+                       // targetTree.CallDeferred("queue_free"); //should eventually change to stump and stop spawning
+                        targetTree = null;
+                    }
                 }
+                cancelChop = false;
                 chopping = false;
             }
         }
@@ -147,11 +152,15 @@ public partial class Player : CharacterBody2D
     {
         if (@event is InputEventMouseButton eventMouseButton)
         {
-            if (eventMouseButton.IsReleased() && !chopping && !fishing)
+            if (eventMouseButton.IsReleased() && !fishing)
             {
                 fishIntent = false;
                 targetTree = null;
                 nav.TargetPosition = eventMouseButton.Position;
+                if (chopping) {
+                    cancelChop = true;
+                    axeSprite.Visible = false;
+                }
             }
         }
 
