@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=13 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
@@ -17,6 +17,27 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -10
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q2xc8"]
 radius = 185.261
 height = 558.489
+
+[sub_resource type="Animation" id="Animation_5cnkn"]
+resource_name = "enharden"
+length = 60.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GGEZ:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 60),
+"transitions": PackedFloat32Array(2.00001, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6p0y"]
+_data = {
+"enharden": SubResource("Animation_5cnkn")
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vygcg")
@@ -58,6 +79,18 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camp/Area2D"]
 rotation = -1.4526
 shape = SubResource("CapsuleShape2D_q2xc8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camp"]
+autoplay = "enharden"
+libraries = {
+"": SubResource("AnimationLibrary_k6p0y")
+}
+
+[node name="GGEZ" type="Area2D" parent="Camp"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Camp/GGEZ"]
+position = Vector2(-11.5323, -74.1081)
+polygon = PackedVector2Array(-154.986, -462.671, 587.482, -523.56, 1497.1, -349.357, 2168.57, 30.9229, 2562.75, 892.569, -2249.88, 1794.31, -2278.03, 1171.22, -1925.55, 470.68, -1397.06, 36.2469, -660.344, -328.368)
 
 [node name="Player" parent="." instance=ExtResource("3_l4o8g")]
 
