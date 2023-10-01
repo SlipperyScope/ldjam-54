@@ -13,6 +13,18 @@ namespace Game;
 /// </summary>
 public partial class Global : Node
 {
+    public event EventHandler Beat;
+    private Double Time = 0d;
+    private Double NextBeat = 0d;
+    public override void _PhysicsProcess(Double delta)
+    {
+        Time += delta;
+        if (Time >= NextBeat)
+        {
+            NextBeat += 0.5d;
+            Beat?.Invoke(this,new());
+        }
+    }
     public DateTime startTime;
     public DateTime endTime;
     public bool isRunning = false;

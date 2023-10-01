@@ -39,7 +39,6 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     private AnimatedSprite2D Sprite;
     private ShapeCast2D Seedler;
     private NavigationObstacle2D Obstacle;
-
     private Single HitsRemaining;
 
     public override void _EnterTree()
@@ -47,6 +46,12 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
         _ = Config ?? throw new NullReferenceException(nameof(Config));
         TreeName ??= Config.Name;
         HitsRemaining = Config.HitPoints;
+        this.Global().Beat += Wiggle;
+    }
+
+    private void Wiggle(Object sender, EventArgs e)
+    {
+            RotationDegrees += GD.Randf() * 2f - 1f;
     }
 
     public override void _Ready()
@@ -129,6 +134,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
             var stump = Config.Stump.Instantiate<Node2D>();
             stump.Transform = Transform;
             this.Global().LogMurder(TreeName);
+            this.Global().Beat -= Wiggle;
             Felled?.Invoke(this, stump);
             return true;
         }
