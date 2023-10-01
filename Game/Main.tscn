@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=11 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
@@ -17,19 +17,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -10
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q2xc8"]
 radius = 185.261
 height = 558.489
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsotc"]
-size = Vector2(456, 3079.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gncgh"]
-size = Vector2(434, 3539)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifpdk"]
-size = Vector2(5417, 317)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_teltk"]
-radius = 2773.66
-height = 6756.32
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vygcg")
@@ -91,22 +78,8 @@ position = Vector2(-2, -1341)
 
 [node name="ExclusionZone" type="Area2D" parent="TreeSpawner"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
-position = Vector2(-2424, 158.25)
-shape = SubResource("RectangleShape2D_hsotc")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
-position = Vector2(2480, 14.5)
-shape = SubResource("RectangleShape2D_gncgh")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
-position = Vector2(36.5, -1499)
-shape = SubResource("RectangleShape2D_ifpdk")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
-position = Vector2(8, -1118)
-rotation = -1.57455
-shape = SubResource("CapsuleShape2D_teltk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeSpawner/ExclusionZone"]
+polygon = PackedVector2Array(1934, 1071, 2477, 1372, 2428, -1726, -2556, -1690, -2659, 1515, -1878, 1057, -2183, 1062, -2183, -1354, 2239, -1363, 2230, 986)
 
 [node name="Ocean" parent="." instance=ExtResource("7_sfqmv")]
 position = Vector2(-63, -36)

@@ -145,6 +145,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     public Boolean DoAHit(Int32 damage)
     {
         HitsRemaining -= damage;
+        Growing = false;
         UpdateSprite();
 
         if (HitsRemaining <= 0)
