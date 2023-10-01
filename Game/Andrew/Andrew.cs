@@ -35,8 +35,9 @@ public partial class Andrew : Node2D
 		TreeBuilder = new(TreeConfig as TreeConfig ?? throw new InvalidCastException($"{nameof(TreeConfig)} is not a valid config type or is null"));
 
 		PlantFirstTree(new());
+		//PlantFirstTree(new(500f,0f));
 
-		NextSpawn = SpawnRate;
+        NextSpawn = SpawnRate;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -65,12 +66,13 @@ public partial class Andrew : Node2D
 		Trees.Add(tree);
 		AddChild(tree);
 		tree.Position = position;
+		tree.ZIndex -= 2;
 	}
 
-	private void OnPlantSapling(Object sender, SaplingPlantedEventArgs e)
+    private void OnPlantSapling(Object sender, SaplingPlantedEventArgs e)
 	{
 		var tree = e.Builder.Make();
-		tree.Position = e.Position;
+		tree.GlobalPosition = e.Position;
 		tree.Rotation = e.Rotation;
 		Trees.Add(tree);
 		AddChild(tree);

@@ -107,15 +107,15 @@ public partial class Tree : Node2D
         {
             Spawner.Position = RandomSpawnPosition();
             Spawner.ForceShapecastUpdate();
-            var worldPosition = Position + Spawner.Position;
 
             // TODO: Move conditions checking to configuration (out of scope)
 
             if (Spawner.IsColliding() is false && InBounds(Spawner) is true)
             {
                 //SaplingPlanted?.Invoke(this, new(worldPosition, GD.Randf() * Mathf.Tau, new(Config)));
-                return new(worldPosition, GD.Randf() * Mathf.Tau, new(Config));
+                return new(Spawner.GlobalPosition, GD.Randf() * Mathf.Tau, new(Config));
                 //break;
+
             }
         }
 

@@ -13,3 +13,5 @@ texture = ExtResource("1_e7xxw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.3, 0.3)
+
+[node name="Drawing" type="Node2D" parent="."]
