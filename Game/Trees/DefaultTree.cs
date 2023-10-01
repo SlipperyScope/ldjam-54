@@ -124,11 +124,9 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
         if (HitsRemaining <= 0)
         {
             //TODO: Spawn stump
-            var sprite = new Sprite2D();
-            sprite.Texture = GD.Load<Texture2D>("res://art/stump.png");
-            sprite.Transform = Transform;
-            //AddSibling(sprite);
-            Felled?.Invoke(this, sprite);
+            var stump = Config.Stump.Instantiate<Node2D>();
+            stump.Transform = Transform;
+            Felled?.Invoke(this, stump);
             return true;
         }
 

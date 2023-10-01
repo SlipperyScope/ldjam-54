@@ -1,5 +1,6 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://ctb0gl7kjm6qn"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://ctb0gl7kjm6qn"]
 
+[ext_resource type="PackedScene" uid="uid://dlcg1ur4av0pc" path="res://adamJunk/Stump.tscn" id="1_kqwtu"]
 [ext_resource type="SpriteFrames" uid="uid://b7gtffl421n88" path="res://Trees/DefaultTreeSprite.tres" id="2_j4pka"]
 [ext_resource type="Script" path="res://Trees/Treesource.cs" id="3_7hy2v"]
 
@@ -15,4 +16,5 @@ SaplingPath = "res://Trees/DefaultTree.tscn"
 SpawnAttempts = 10
 Minimum = 350.0
 Maximum = 600.0
-HitPoints = 3.0
+Stump = ExtResource("1_kqwtu")
+HitPoints = 1.0
