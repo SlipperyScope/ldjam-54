@@ -46,6 +46,7 @@ public partial class Player : CharacterBody2D
                 tween.TweenProperty(axeSprite, "rotation_degrees", -90, 0);
 
                 await ToSignal(GetTree().CreateTimer(axeTime), "timeout");
+                chopSfx.PitchScale = (Single)GD.RandRange(0.95d, 1.05d);
                 chopSfx.Play();
                 GD.Print("chop");
                 if ((targetTree as ITree).DoAHit(axeDamage)) {
