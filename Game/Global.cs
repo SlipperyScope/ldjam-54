@@ -16,6 +16,8 @@ public partial class Global : Node
     public DateTime endTime;
     public bool isRunning = false;
 
+    public Player player;
+
     /// <summary>
     /// Testing
     /// </summary>
@@ -34,6 +36,18 @@ public partial class Global : Node
 
     public TimeSpan gameDuration {
         get => isRunning ? DateTime.Now - startTime : endTime - startTime;
+    }
+
+    public void SetPlayer(Player player)
+    {
+        this.player = player;
+    }
+
+    public void SetTargetTree(Game.Andrew.Tree tree)
+    {
+        if (player != null) {
+            player.targetTree = tree;
+        }
     }
 }
 

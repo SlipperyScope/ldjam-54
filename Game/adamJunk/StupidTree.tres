@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bde4r0myf6gfu"]
+
+[ext_resource type="Script" path="res://Andrew/TreeConfig.cs" id="1_rwejg"]
+
+[resource]
+script = ExtResource("1_rwejg")
+Name = "Unspecified Tree"
+_SpawnRange = {
+"R": 300.0,
+"r": 200.0
+}
+SpawnAttempts = 10
+SpawnInterval = 1.0
+NavObstacleRadius = 200.0
+StumpNavObstacleRadius = 100.0

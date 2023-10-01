@@ -1,14 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://cphjvbyftniah"]
+[gd_scene load_steps=11 format=3 uid="uid://cphjvbyftniah"]
 
 [ext_resource type="Script" path="res://Adam.cs" id="1_8xl31"]
-[ext_resource type="Script" path="res://adamJunk/movement.cs" id="2_5g3m6"]
-[ext_resource type="Texture2D" uid="uid://cql150uiqlbh0" path="res://art/placeholder/player.png" id="2_85pba"]
-[ext_resource type="Texture2D" uid="uid://br35q4luiym4m" path="res://icon.svg" id="4_gxq70"]
+[ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_cy2hk"]
+[ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="5_cg6op"]
+[ext_resource type="Texture2D" uid="uid://c6855db6cpp0h" path="res://art/stump.png" id="5_wp350"]
+[ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="6_dfk5q"]
+[ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="6_yfe36"]
+[ext_resource type="Script" path="res://Andrew/TreeConfig.cs" id="7_fxpdi"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_c2xr1"]
-vertices = PackedVector2Array(-4, 0, 1150, -1, 1153, 652, -3, 649)
+vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-4, 0, 1150, -1, 1153, 652, -3, 649)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hmoi"]
+radius = 150.0
+
+[sub_resource type="Resource" id="Resource_ixocl"]
+script = ExtResource("7_fxpdi")
+Name = "Test Tree"
+_SpawnRange = {
+"R": 600.0,
+"r": 350.0
+}
+Texture = ExtResource("6_yfe36")
+StumpTexture = ExtResource("5_wp350")
+CollisionShape = SubResource("CircleShape2D_2hmoi")
+SpawnAttempts = 1
+SpawnInterval = 5.0
+SaplingScene = ExtResource("6_dfk5q")
+NavObstacleRadius = 200.0
+StumpNavObstacleRadius = 100.0
 
 [node name="Adam" type="Node2D"]
 script = ExtResource("1_8xl31")
@@ -17,32 +39,18 @@ script = ExtResource("1_8xl31")
 position = Vector2(3, 1)
 navigation_polygon = SubResource("NavigationPolygon_c2xr1")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(60.565, 35.19)
-scale = Vector2(0.256065, 0.256065)
-script = ExtResource("2_5g3m6")
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("5_cg6op")
 
-[node name="PlayerSprite" type="Sprite2D" parent="Player"]
-texture = ExtResource("2_85pba")
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)
 
-[node name="PlayerNav" type="NavigationAgent2D" parent="Player"]
-path_postprocessing = 1
-avoidance_enabled = true
-max_speed = 300.0
-debug_enabled = true
+[node name="Player" parent="." instance=ExtResource("3_cy2hk")]
 
-[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="."]
-position = Vector2(691, 241)
-radius = 89.84
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="."]
+position = Vector2(400, -120)
+vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
 
-[node name="Sprite2D" type="Sprite2D" parent="NavigationObstacle2D2"]
-scale = Vector2(1.13912, 1.13912)
-texture = ExtResource("4_gxq70")
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-position = Vector2(281, 212)
-radius = 89.84
-
-[node name="Sprite2D" type="Sprite2D" parent="NavigationObstacle2D"]
-scale = Vector2(1.13912, 1.13912)
-texture = ExtResource("4_gxq70")
+[node name="Tree" parent="." instance=ExtResource("6_dfk5q")]
+position = Vector2(-729, -28)
+Config = SubResource("Resource_ixocl")

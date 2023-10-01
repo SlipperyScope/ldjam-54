@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +32,8 @@ public partial class Tree : Node2D
     private Double PhysicsTime = 0d;
     private Double NextSpawnAttempt = 0d;
 
+    private int Health = 10;
+
     //TODO: Make it not need to be set before the node is ready
     /// <summary>
     /// Sets the config.
@@ -53,6 +55,8 @@ public partial class Tree : Node2D
         Sprite.Texture = Config.Texture;
         
         Bounds.GetNode<CollisionShape2D>("CollisionShape2D").Shape = Config.CollisionShape;
+        Bounds.InputEvent += InputEvent;
+        
 
         // TODO: Non-circle obstacle? = use collision shape
         Nav.Radius = Config.NavObstacleRadius;
@@ -66,6 +70,7 @@ public partial class Tree : Node2D
 
     // TODO: Move spawning to level
     // TODO: Either never allow two spawns in one physics frame or queue them and remove one of any pair that overlap
+
     public override void _PhysicsProcess(Double delta)
     {
         //PhysicsTime += delta;
@@ -146,6 +151,30 @@ public partial class Tree : Node2D
             GD.Print("Did not find a point in annulus");
 
         return point;
+    }
+
+    public void InputEvent(Node viewpport, InputEvent @event, long shapeIdx)
+    {
+		if (@event is InputEventMouseButton eventMouseButton && Health > 0)
+		{
+			if (eventMouseButton.IsReleased()) {
+                this.Global().SetTargetTree(this);
+                GD.Print("Tree clicked");
+            }
+        }
+    }
+
+    public Boolean DoAHit(int damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            Sprite.Texture = Config.StumpTexture;
+            Nav.Radius = Config.StumpNavObstacleRadius;
+            Spawner.Enabled = false;
+            //kill tree
+        }
+        return Health <= 0;
     }
 
     //private List<Vector2> Hits = new();
