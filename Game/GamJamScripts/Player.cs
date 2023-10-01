@@ -6,6 +6,7 @@ namespace Game;
 
 public partial class Player : CharacterBody2D
 {
+    private Sprite2D axeSprite;
     private NavigationAgent2D nav;
     private AudioStreamPlayer2D chopSfx;
     int speed = 300;
@@ -24,6 +25,8 @@ public partial class Player : CharacterBody2D
         nav = GetNode<NavigationAgent2D>("PlayerNav");
         nav.VelocityComputed += Move;
         chopSfx = GetNode<AudioStreamPlayer2D>("ChopSfx");
+
+        axeSprite = GetNode<Sprite2D>("Axe");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,7 +38,12 @@ public partial class Player : CharacterBody2D
             if (!chopping)
             {
                 chopping = true;
-                //start animation?
+                Tween tween = GetTree().CreateTween();
+                tween.TweenProperty(axeSprite, "visible", true, 0);
+                tween.TweenProperty(axeSprite, "rotation_degrees", 0, axeTime);
+                tween.TweenProperty(axeSprite, "visible", false, 0);
+                tween.TweenProperty(axeSprite, "rotation_degrees", -90, 0);
+
                 await ToSignal(GetTree().CreateTimer(axeTime), "timeout");
                 chopSfx.Play();
                 GD.Print("chop");
