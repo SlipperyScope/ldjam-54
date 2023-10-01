@@ -14,21 +14,13 @@ public partial class Stump : Node2D
 	{
         StumpSprite = GetNode<Sprite2D>("StumpSprite");
         CircleSprite = GetNode<Sprite2D>("CircleSprite");
-        Color stumpColor = StumpSprite.Modulate;
-        stumpColor.A = 0;
-
-        Color circleHalfColor = CircleSprite.Modulate;
-        circleHalfColor.A = 0.7f;
-
-        Color circleColor = CircleSprite.Modulate;
-        circleColor.A = 0;
 
         tween = GetTree().CreateTween();
         tween.Pause();
         tween.TweenProperty(CircleSprite, "scale", new Vector2(1.2f, 1.2f), 0.5f);
-        tween.Parallel().TweenProperty(CircleSprite, "modulate", circleHalfColor, 0.5f);
-        tween.TweenProperty(StumpSprite, "modulate", stumpColor, 2.0f);
-        tween.Parallel().TweenProperty(CircleSprite, "modulate", circleColor, 1.0f);
+        tween.Parallel().TweenProperty(CircleSprite, "modulate:a", .07, 0.5f);
+        tween.TweenProperty(StumpSprite, "modulate:a", 0, 2.0f);
+        tween.Parallel().TweenProperty(CircleSprite, "modulate:a", 0, 1.0f);
         tween.TweenCallback(Callable.From(this.QueueFree));
 	}
 
