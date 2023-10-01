@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=14 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
+[ext_resource type="Texture2D" uid="uid://ddwh4y3luy18a" path="res://art/placeholder/camp.png" id="3_ikhby"]
 [ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_l4o8g"]
 [ext_resource type="PackedScene" uid="uid://dgwcb1egqi7gb" path="res://Trees/TreeSpawner.tscn" id="5_71gnm"]
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
@@ -11,6 +12,23 @@
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)])
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q2xc8"]
+radius = 185.261
+height = 558.489
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsotc"]
+size = Vector2(456, 3079.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gncgh"]
+size = Vector2(434, 3539)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifpdk"]
+size = Vector2(5417, 317)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_teltk"]
+radius = 2773.66
+height = 6756.32
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vygcg")
@@ -27,6 +45,32 @@ texture = ExtResource("2_21owk")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.3, 0.3)
 
+[node name="Camp" type="Sprite2D" parent="."]
+position = Vector2(-137, 295)
+rotation = 0.154377
+texture = ExtResource("3_ikhby")
+metadata/_edit_group_ = true
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Camp"]
+vertices = PackedVector2Array(-242, -1, -193, -104, -94, -72, -161, 74, -258, 13)
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="Camp"]
+vertices = PackedVector2Array(-30, 63, -34, 1, 1, -45, 72, -57, 120, -30, 149, 22, 132, 78, 85, 108, 14, 111)
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="Camp"]
+vertices = PackedVector2Array(175, 101, 176, 82, 194, 76, 196, 90, 189, 104)
+
+[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="Camp"]
+vertices = PackedVector2Array(216, 23, 155, -64, 169, -73, 232, 18)
+
+[node name="Area2D" type="Area2D" parent="Camp"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camp/Area2D"]
+rotation = -1.4526
+shape = SubResource("CapsuleShape2D_q2xc8")
+
 [node name="Player" parent="." instance=ExtResource("3_l4o8g")]
 
 [node name="MoveArea" type="NavigationObstacle2D" parent="."]
@@ -38,8 +82,28 @@ stream = ExtResource("6_460aj")
 volume_db = -17.859
 autoplay = true
 
-[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown") instance=ExtResource("5_71gnm")]
+[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown", "Camp") instance=ExtResource("5_71gnm")]
 Stumptown = NodePath("../Stumptown")
+Camp = NodePath("../Camp/Area2D")
 
 [node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
-position = Vector2(8, -1118)
+position = Vector2(-630, -123)
+
+[node name="ExclusionZone" type="Area2D" parent="TreeSpawner"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
+position = Vector2(-2424, 158.25)
+shape = SubResource("RectangleShape2D_hsotc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
+position = Vector2(2480, 14.5)
+shape = SubResource("RectangleShape2D_gncgh")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
+position = Vector2(36.5, -1499)
+shape = SubResource("RectangleShape2D_ifpdk")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
+position = Vector2(-74, 3470)
+rotation = -1.57455
+shape = SubResource("CapsuleShape2D_teltk")

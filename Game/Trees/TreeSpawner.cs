@@ -20,6 +20,9 @@ public partial class TreeSpawner : Node
     [Export]
     private Node2D Stumptown;
 
+    [Export]
+    private Area2D Camp;
+
     private Double Time = 0d;
     private Double Next = 0f;
 
@@ -34,6 +37,19 @@ public partial class TreeSpawner : Node
         Felled = GetNodeOrNull<RandomSound2D>($"{nameof(Felled)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(Felled)}");
 
         Next = SpawnInterval;
+
+        Camp.AreaEntered += Camp_AreaEntered;
+    }
+
+    private void Camp_AreaEntered(Area2D area)
+    {
+        //GD.Print(area, area.GetParent());
+
+        GD.PushWarning("Lol, you lose");
+        GD.Print("💀💀 Lol, you lose 💀💀");
+        SpawnInterval = 0f;
+        Next = 0f;
+        Camp.AreaEntered -= Camp_AreaEntered;
     }
 
     public override void _Ready()
@@ -62,6 +78,7 @@ public partial class TreeSpawner : Node
             RemoveChild(tree.AsNode);
             tree.AsNode.QueueFree();
             Felled.Play();
+            StopSpawn = false;
         }
         else
         {
@@ -89,8 +106,14 @@ public partial class TreeSpawner : Node
         }
     }
 
+    private Boolean StopSpawn = false;
+
     private void SpawnTree(Seed seed)
     {
+        //GD.Print(Trees.Count);
+
+        if (StopSpawn) return;
+
         var tree = seed.Scene.InstantiateOrNull<ITree>() ?? throw new InvalidCastException(nameof(seed));
         var name = GetRandomUniqueName();
         tree.TreeName = name;
@@ -118,14 +141,57 @@ public partial class TreeSpawner : Node
             }
             else
             {
-                throw new Exception("You fool, you absolute baffoon, you utterly incompetant single celled organism - you did not make enough name!");
+                //throw new Exception("You fool, you absolute baffoon, you utterly incompetant single celled organism - you did not make enough name!");
+                GD.PushWarning("You fool, you absolute baffoon, you utterly incompetant single celled organism - you did not make enough name!");
+                StopSpawn = true;
+                return null;
             }
         }
     }
 
     private List<String> SillyNames = new()
     {
-        "Jerry", "Bertha", "Ebenezer", "Mildred", "Horace", "Gertrude", "Archibald", "Ethel", "Wilfred", "Agatha", "Cuthbert", "Maude", "Barnaby", "Gladys", "Percival", "Doris", "Rupert", "Edna", "Algernon", "Mabel", "Clement", "Myrtle", "Basil", "Eunice", "Edgar", "Blanche", "Ernest", "Hilda", "Herbert", "Fanny", "Clarence", "Enid", "Gilbert", "Gloria", "Harold", "Ida", "Lionel", "Muriel", "Melvin" , "Prudence" , "Norman"
+        "Jerry", 
+        "Bertha", 
+        "Ebenezer", 
+        "Mildred", 
+        "Horace", 
+        "Gertrude", 
+        "Archibald", 
+        "Ethel", 
+        "Wilfred", 
+        "Agatha", 
+        "Cuthbert", 
+        "Maude", 
+        "Barnaby", 
+        "Gladys", 
+        "Percival", 
+        "Doris", 
+        "Rupert", 
+        "Edna", 
+        "Algernon", 
+        "Mabel", 
+        "Clement", 
+        "Myrtle", 
+        "Basil", 
+        "Eunice", 
+        "Edgar",
+        "Blanche", 
+        "Ernest", 
+        "Hilda", 
+        "Herbert", 
+        "Fanny", 
+        "Clarence", 
+        "Enid", 
+        "Gilbert", 
+        "Gloria", 
+        "Harold", 
+        "Ida", 
+        "Lionel", 
+        "Muriel", 
+        "Melvin" , 
+        "Prudence" , 
+        "Norman","Adonis", "Astrid", "Beatrix", "Blaine", "Bodhi", "Briar", "Caspian", "Coraline", "Daphne", "Darius", "Delilah", "Dorian", "Elodie", "Emrys", "Esme", "Finnick", "Freya", "Gideon", "Harlow", "Hugo", "Imogen", "Iris", "Jasper", "Juno", "Kaius", "Lara", "Leander", "Lennox", "Lila", "Lorelei", "Magnus", "Maren", "Matteo", "Mira", "Nadia", "Nico", "Odette", "Orion", "Oscar", "Phoebe", "Remy", "Rhea", "Ronan", "Ruby", "Sasha", "Sawyer", "Seraphina", "Talia", "Thalia", "Zara"
     };
 
     private List<String> NormalNames = new()
