@@ -85,9 +85,15 @@ public partial class Global : Node
 
     public void SetTarget(ITargetable target)
     {
-        if (player is not null && !player.chopping) //I know, bad, but game jam
+        if (player is not null && !player.chopping && !player.fishing) //I know, bad, but game jam
         {
             player.targetTree = target as CanvasItem ?? throw new InvalidCastException();
+        }
+    }
+
+    public void GoFishing() {
+        if (player is not null && !player.chopping && !player.fishing) {
+            player.fishing = true;
         }
     }
 }

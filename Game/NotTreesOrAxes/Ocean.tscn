@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b05utxmn0yeun"]
+
+[ext_resource type="Script" path="res://NotTreesOrAxes/Ocean.cs" id="1_hvbjn"]
+
+[node name="Ocean" type="Node2D"]
+
+[node name="Ocean" type="Area2D" parent="."]
+script = ExtResource("1_hvbjn")
+
+[node name="Bounds" type="CollisionPolygon2D" parent="Ocean"]
+polygon = PackedVector2Array(-592, 353, -543, 313, -455, 306, -389, 326, -295, 268, -219, 266, -152, 286, 33, 232, 100, 224, 211, 247, 302, 289, 341, 279, 401, 291, 439, 308, 499, 299, 570, 328, 599, 323, 647, 359)

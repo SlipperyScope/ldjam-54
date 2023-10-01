@@ -19,6 +19,7 @@ public partial class Player : CharacterBody2D
     float accel = 7.0f;
 
     public bool chopping = false;
+    public bool fishing = false;
 
     private Double MaxStepInterval = 1d;
     private Double MinStepInterval = .25d;
