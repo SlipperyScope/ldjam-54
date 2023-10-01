@@ -118,6 +118,7 @@ public partial class Player : CharacterBody2D
             fishing = true;
             fishIntent = false;
             GetNode<Sprite2D>("FishingPole").Visible = true;
+            nav.TargetPosition = pos;
             nav.Velocity = new Vector2(0, 0);
             return;
         }
@@ -146,6 +147,7 @@ public partial class Player : CharacterBody2D
         {
             if (eventMouseButton.IsReleased() && !chopping && !fishing)
             {
+                fishIntent = false;
                 targetTree = null;
                 nav.TargetPosition = eventMouseButton.Position;
             }
