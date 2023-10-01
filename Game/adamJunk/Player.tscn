@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://w4vghr15lnc"]
+[gd_scene load_steps=11 format=3 uid="uid://w4vghr15lnc"]
 
 [ext_resource type="Script" path="res://GamJamScripts/Player.cs" id="1_21lx6"]
+[ext_resource type="Texture2D" uid="uid://jo7qi1mmgx2r" path="res://art/fishing-pole.png" id="2_fs6kb"]
 [ext_resource type="Texture2D" uid="uid://67d4jp0baibx" path="res://art/player.png" id="2_tc1x4"]
 [ext_resource type="AudioStream" uid="uid://d0opvbh1daemo" path="res://Sounds/Chop.wav" id="3_4umor"]
 [ext_resource type="Texture2D" uid="uid://c0fg5scj5hrba" path="res://art/axe.png" id="4_er788"]
@@ -14,6 +15,12 @@
 position = Vector2(60.565, 35.19)
 scale = Vector2(0.256065, 0.256065)
 script = ExtResource("1_21lx6")
+
+[node name="FishingPole" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(528.909, 128.132)
+rotation = -1.5708
+texture = ExtResource("2_fs6kb")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 rotation = 1.5708

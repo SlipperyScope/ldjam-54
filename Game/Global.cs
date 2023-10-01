@@ -93,7 +93,7 @@ public partial class Global : Node
 
     public void GoFishing() {
         if (player is not null && !player.chopping && !player.fishing) {
-            player.fishing = true;
+            player.fishIntent = true;
         }
     }
 }

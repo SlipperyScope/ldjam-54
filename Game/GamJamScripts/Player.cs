@@ -18,8 +18,12 @@ public partial class Player : CharacterBody2D
     int speed = 300;
     float accel = 7.0f;
 
+    private double fishDuration = 5f;
+    private double fishDelta = 0f;
+
     public bool chopping = false;
-    public bool fishing = false;
+    public bool fishIntent = false; // The ocean was clicked
+    public bool fishing = false; // Fishing is happening
 
     private Double MaxStepInterval = 1d;
     private Double MinStepInterval = .25d;
@@ -73,6 +77,18 @@ public partial class Player : CharacterBody2D
         } 
         #endregion
 
+        if (fishing) {
+            fishDelta += delta;
+            GD.Print($"Fishing {fishDelta} of {fishDuration}");
+            if (fishDelta > fishDuration) {
+                fishDelta = 0;
+                fishing = false;
+                GetNode<Sprite2D>("FishingPole").Visible = false;
+                // Trigger loot select here
+            }
+            return; // While fishing, nothing else can happen
+        }
+
         Vector2 pos = GetGlobalTransformWithCanvas().Origin;
         if (targetTree != null && pos.DistanceTo(targetTree.GetGlobalTransformWithCanvas().Origin) < Axe.getRange()) {
             nav.TargetPosition = pos;
@@ -98,17 +114,24 @@ public partial class Player : CharacterBody2D
             }
         }
 
+        if (fishIntent && pos.DistanceTo(nav.TargetPosition) < 50) {
+            fishing = true;
+            fishIntent = false;
+            GetNode<Sprite2D>("FishingPole").Visible = true;
+            nav.Velocity = new Vector2(0, 0);
+            return;
+        }
+
         if (!chopping && pos.DistanceTo(nav.TargetPosition) > 10)
         {
             Vector2 direction = nav.GetNextPathPosition() - pos;
             direction = direction.Normalized();
             Velocity = Velocity.Lerp(direction * speed, (float)(accel * delta));
             nav.Velocity = Velocity;
+            return;
         }
-        else
-        {
-            nav.Velocity = new Vector2(0, 0);
-        }
+
+        nav.Velocity = new Vector2(0, 0);
     }
 
     public void SetTarget(CanvasItem target) {
@@ -121,7 +144,7 @@ public partial class Player : CharacterBody2D
     {
         if (@event is InputEventMouseButton eventMouseButton)
         {
-            if (eventMouseButton.IsReleased() && !chopping)
+            if (eventMouseButton.IsReleased() && !chopping && !fishing)
             {
                 targetTree = null;
                 nav.TargetPosition = eventMouseButton.Position;

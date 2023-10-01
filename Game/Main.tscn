@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=15 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dgwcb1egqi7gb" path="res://Trees/TreeSpawner.tscn" id="5_71gnm"]
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
 [ext_resource type="PackedScene" uid="uid://diknhotxscvj" path="res://Trees/DefaultTree.tscn" id="6_f5ltf"]
+[ext_resource type="PackedScene" uid="uid://b05utxmn0yeun" path="res://NotTreesOrAxes/Ocean.tscn" id="7_sfqmv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
@@ -82,9 +83,8 @@ stream = ExtResource("6_460aj")
 volume_db = -17.859
 autoplay = true
 
-[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown", "Camp") instance=ExtResource("5_71gnm")]
+[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown") instance=ExtResource("5_71gnm")]
 Stumptown = NodePath("../Stumptown")
-Camp = NodePath("../Camp/Area2D")
 
 [node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
 position = Vector2(-2, -1341)
@@ -104,6 +104,10 @@ position = Vector2(36.5, -1499)
 shape = SubResource("RectangleShape2D_ifpdk")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="TreeSpawner/ExclusionZone"]
-position = Vector2(-74, 3470)
+position = Vector2(8, -1118)
 rotation = -1.57455
 shape = SubResource("CapsuleShape2D_teltk")
+
+[node name="Ocean" parent="." instance=ExtResource("7_sfqmv")]
+position = Vector2(-63, -36)
+scale = Vector2(3.12123, 3.12123)
