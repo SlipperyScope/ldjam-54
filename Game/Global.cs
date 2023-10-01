@@ -24,6 +24,26 @@ public partial class Global : Node
     /// </summary>
     public void HelloWorld() => GD.Print("Hello World");
 
+    private readonly Dictionary<String, Int32> MurderLog = new();
+
+    /// <summary>
+    /// Logs a murder in the murder log
+    /// </summary>
+    /// <param name="name">They're all named Jerry</param>
+    public void LogMurder(String name)
+    {
+        if (MurderLog.ContainsKey(name) is true)
+        {
+            MurderLog[name] += 1;
+        }
+        else
+        {
+            MurderLog.Add(name, 1);
+        }
+
+        GD.Print($"{name} has been murdered {MurderLog[name]} time{(MurderLog[name] is not 1 ? "s" : "")}");
+    }
+
     public void StartGame() {
         // Clear last game state (spawned trees, inventory, etc) here
         startTime = DateTime.Now;

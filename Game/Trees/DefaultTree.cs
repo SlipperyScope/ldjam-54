@@ -123,9 +123,9 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
         if (HitsRemaining <= 0)
         {
-            //TODO: Spawn stump
             var stump = Config.Stump.Instantiate<Node2D>();
             stump.Transform = Transform;
+            this.Global().LogMurder(Config.Name);
             Felled?.Invoke(this, stump);
             return true;
         }
