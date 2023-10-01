@@ -53,10 +53,12 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
     public override void _Process(Double delta)
     {
-        if (Growing is true && HitsRemaining < Config.HitPoints)
+        if (HitsRemaining < Config.HitPoints)
         {
-            HitsRemaining += Config.GrowthRate * (Single)delta;
+
+            HitsRemaining += Growing is true ? Config.GrowthRate * (Single)delta : Config.HealingRate;
             UpdateSprite();
+
             if (HitsRemaining > Config.HitPoints)
             {
                 HitsRemaining = Config.HitPoints;
@@ -92,6 +94,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     public Seed Spread()
     {
         if (Growing is true) return null;
+        if (HitsRemaining / Config.HitPoints is < .8f) return null;
 
         for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
         {

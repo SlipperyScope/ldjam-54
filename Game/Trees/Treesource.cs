@@ -88,4 +88,10 @@ public partial class Treesource : Resource
     /// </summary>
     [Export]
     public Single GrowthRate { get; private set; } = 1f;
+
+    /// <summary>
+    /// Amount of hit points a tree gains per second when it is damaged
+    /// </summary>
+    [Export]
+    public Single HealingRate { get; private set; } = 0.1f;
 }
