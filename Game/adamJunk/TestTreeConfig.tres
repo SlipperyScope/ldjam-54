@@ -1,7 +1,6 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://p56udk8htcdq"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://p56udk8htcdq"]
 
 [ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="1_4v3lk"]
-[ext_resource type="Texture2D" uid="uid://c6855db6cpp0h" path="res://art/stump.png" id="2_avo3r"]
 [ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="2_f11q8"]
 [ext_resource type="Script" path="res://Andrew/TreeConfig.cs" id="3_qjms0"]
 
@@ -16,10 +15,8 @@ _SpawnRange = {
 "r": 350.0
 }
 Texture = ExtResource("2_f11q8")
-StumpTexture = ExtResource("2_avo3r")
 CollisionShape = SubResource("CircleShape2D_x7c5r")
 SpawnAttempts = 1
 SpawnInterval = 5.0
 SaplingScene = ExtResource("1_4v3lk")
 NavObstacleRadius = 200.0
-StumpNavObstacleRadius = 100.0
