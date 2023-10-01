@@ -18,6 +18,7 @@ public interface ITree
     public Seed Spread();
     public Node2D AsNode { get; }
     public String TreeName { get; set; }
+    public Area2D Bounds { get; }
 }
 
 /// <summary>
@@ -35,7 +36,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
     public String TreeName { get; set; } = null;
 
-    private Area2D Bounds;
+    public Area2D Bounds { get; private set; }
     private AnimatedSprite2D Sprite;
     private ShapeCast2D Seedler;
     private NavigationObstacle2D Obstacle;
@@ -82,7 +83,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
             Seedler.Rotation = GD.Randf() * Mathf.Tau;
             Seedler.ForceShapecastUpdate();
 
-            if (Seedler.IsColliding() is false && IsInBounds(Seedler) is true)
+            if (Seedler.IsColliding() is false)// && IsInBounds(Seedler) is true)
             {
                 Seedler.Enabled = false;
                 return new(GD.Load<PackedScene>(Config.SaplingPath), Seedler.GlobalTransform);
@@ -114,7 +115,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
         return point;
     }
 
-    private Boolean IsInBounds(Node2D node) => new Rect2(-2500f, -2000f, 5000f, 2500f).HasPoint(node.GlobalPosition); //node.GlobalPosition.X is > -2500f and < 2500f && node.GlobalPosition.Y is > -2000f and < 500f;
+    //private Boolean IsInBounds(Node2D node) => /*new Rect2(-2500f, -2000f, 5000f, 2500f).HasPoint(node.GlobalPosition);//*/ node.GlobalPosition.X is > -2500f and < 2500f && node.GlobalPosition.Y is > -2000f and < 500f;
 
     private void OnClick(Node viewport, InputEvent e, Int64 shapeIdx)
     {

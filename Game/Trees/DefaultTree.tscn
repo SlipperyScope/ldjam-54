@@ -10,6 +10,8 @@ Config = ExtResource("2_mjfd1")
 
 [node name="Bounds" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
 
