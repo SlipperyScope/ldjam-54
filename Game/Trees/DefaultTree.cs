@@ -56,7 +56,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
         if (HitsRemaining < Config.HitPoints)
         {
 
-            HitsRemaining += Growing is true ? Config.GrowthRate * (Single)delta : Config.HealingRate;
+            HitsRemaining += (Growing is true ? Config.GrowthRate : Config.HealingRate) * (Single)delta;
             UpdateSprite();
 
             if (HitsRemaining > Config.HitPoints)
