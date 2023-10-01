@@ -17,6 +17,7 @@ public interface ITree
     public Boolean DoAHit(Int32 damage);
     public Seed Spread();
     public Node2D AsNode { get; }
+    public String TreeName { get; set; }
 }
 
 /// <summary>
@@ -32,6 +33,8 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     [Export]
     private Treesource Config;
 
+    public String TreeName { get; set; } = null;
+
     private Area2D Bounds;
     private AnimatedSprite2D Sprite;
     private ShapeCast2D Seedler;
@@ -42,7 +45,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     public override void _EnterTree()
     {
         _ = Config ?? throw new NullReferenceException(nameof(Config));
-
+        TreeName ??= Config.Name;
         HitsRemaining = Config.HitPoints;
     }
 
@@ -125,7 +128,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
         {
             var stump = Config.Stump.Instantiate<Node2D>();
             stump.Transform = Transform;
-            this.Global().LogMurder(Config.Name);
+            this.Global().LogMurder(TreeName);
             Felled?.Invoke(this, stump);
             return true;
         }

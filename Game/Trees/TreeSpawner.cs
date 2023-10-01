@@ -9,7 +9,7 @@ using Godot;
 namespace Game.Trees;
 public partial class TreeSpawner : Node
 {
-    private List<ITree> Trees = new();
+    private Dictionary<String, ITree> Trees = new();
 
     /// <summary>
     /// Seconds between spawn attempts
@@ -42,7 +42,9 @@ public partial class TreeSpawner : Node
         {
             if (child is ITree tree)
             {
-                Trees.Add(tree);
+                var name = GetRandomUniqueName();
+                tree.TreeName = name;
+                Trees.Add(name, tree);
                 tree.Felled += OnTreeFelled;
             }
         }
@@ -50,12 +52,13 @@ public partial class TreeSpawner : Node
 
     private void OnTreeFelled(Object sender, Node2D e)
     {
-        if (sender is ITree tree && Trees.Contains(tree))
+        if (sender is ITree tree && Trees.Values.ToList().Contains(tree))
         {
             Stumptown.AddChild(e);
             e.GlobalTransform = tree.AsNode.GlobalTransform;
             Felled.GlobalPosition = tree.AsNode.GlobalPosition;
-            Trees.Remove(tree);
+            var pair = Trees.FirstOrDefault(p => p.Value == tree);
+            Trees.Remove(pair.Key);
             RemoveChild(tree.AsNode);
             tree.AsNode.QueueFree();
             Felled.Play();
@@ -72,7 +75,7 @@ public partial class TreeSpawner : Node
 
         if (Time >= Next && Trees.Count > 0)
         {
-            var seed = Trees[(Int32)(GD.Randi() % Trees.Count)].Spread();
+            var seed = Trees.Values.ToList()[(Int32)(GD.Randi() % Trees.Count)].Spread();
 
             if (seed is not null)
             {
@@ -89,11 +92,91 @@ public partial class TreeSpawner : Node
     private void SpawnTree(Seed seed)
     {
         var tree = seed.Scene.InstantiateOrNull<ITree>() ?? throw new InvalidCastException(nameof(seed));
-        Trees.Add(tree);
+        var name = GetRandomUniqueName();
+        tree.TreeName = name;
+        Trees.Add(name, tree);
         tree.Felled += OnTreeFelled;
         AddChild(tree.AsNode);
         tree.AsNode.GlobalTransform = seed.GlobalTransform;
         GrowSound.GlobalPosition = tree.AsNode.GlobalPosition;
         GrowSound.Play();
     }
+
+    private String GetRandomUniqueName()
+    {
+        var unusedNames = SillyNames.Except(Trees.Keys).ToList();
+        if (unusedNames.Count is > 0)
+        {
+            return unusedNames[(Int32)(GD.Randi() % unusedNames.Count)];
+        }
+        else
+        {
+            unusedNames = NormalNames.Except(Trees.Keys).ToList();
+            if (unusedNames.Count is > 0)
+            {
+                return unusedNames[(Int32)(GD.Randi() % unusedNames.Count)];
+            }
+            else
+            {
+                throw new Exception("You fool, you absolute baffoon, you utterly incompetant single celled organism - you did not make enough name!");
+            }
+        }
+    }
+
+    private List<String> SillyNames = new()
+    {
+        "Jerry", "Bertha", "Ebenezer", "Mildred", "Horace", "Gertrude", "Archibald", "Ethel", "Wilfred", "Agatha", "Cuthbert", "Maude", "Barnaby", "Gladys", "Percival", "Doris", "Rupert", "Edna", "Algernon", "Mabel", "Clement", "Myrtle", "Basil", "Eunice", "Edgar", "Blanche", "Ernest", "Hilda", "Herbert", "Fanny", "Clarence", "Enid", "Gilbert", "Gloria", "Harold", "Ida", "Lionel", "Muriel", "Melvin" , "Prudence" , "Norman"
+    };
+
+    private List<String> NormalNames = new()
+    {
+        "Emma", 
+        "Oliver", 
+        "Ava", 
+        "Noah", 
+        "Sophia", 
+        "Liam", 
+        "Isabella", 
+        "Lucas", 
+        "Charlotte", 
+        "Ethan", 
+        "Amelia", 
+        "Mason", 
+        "Harper", 
+        "Logan", 
+        "Evelyn", 
+        "James", 
+        "Abigail", 
+        "Alexander", 
+        "Emily", 
+        "Elijah", 
+        "Avery", 
+        "Jacob", 
+        "Mila", 
+        "Michael", 
+        "Ella", 
+        "Daniel", 
+        "Scarlett", 
+        "Henry", 
+        "Chloe", 
+        "Jackson", 
+        "Lily", 
+        "Sebastian", 
+        "Madison", 
+        "Aiden", 
+        "Sofia", 
+        "Matthew", 
+        "Aria", 
+        "David", 
+        "Riley", 
+        "Owen", 
+        "Zoe", 
+        "Carter", 
+        "Hannah", 
+        "Wyatt", 
+        "Nora", 
+        "Jayden", 
+        "Luna", 
+        "John"
+    };
 }
