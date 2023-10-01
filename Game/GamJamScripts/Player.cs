@@ -1,4 +1,5 @@
 using Game.Andrew;
+using Game.Trees;
 using Godot;
 using System;
 
@@ -15,7 +16,7 @@ public partial class Player : CharacterBody2D
     int axeDamage = 1;
     float axeTime = 1.0f;
 
-    public Game.Andrew.Tree targetTree;
+    public CanvasItem targetTree;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -39,7 +40,7 @@ public partial class Player : CharacterBody2D
                 await ToSignal(GetTree().CreateTimer(axeTime), "timeout");
                 chopSfx.Play();
                 GD.Print("chop");
-                if (targetTree.DoAHit(axeDamage)) {
+                if ((targetTree as ITree).DoAHit(axeDamage)) {
                     GD.Print("tree felled!");
                    // targetTree.CallDeferred("queue_free"); //should eventually change to stump and stop spawning
                     targetTree = null;

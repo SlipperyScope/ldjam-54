@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.GamJamScripts;
 using Godot;
 
 namespace Game;
@@ -47,6 +48,14 @@ public partial class Global : Node
     {
         if (player != null) {
             player.targetTree = tree;
+        }
+    }
+
+    public void SetTarget(ITargetable target)
+    {
+        if (player is not null)
+        {
+            player.targetTree = target as CanvasItem ?? throw new InvalidCastException();
         }
     }
 }

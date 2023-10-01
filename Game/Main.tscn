@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
-[ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="3_83kts"]
 [ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_l4o8g"]
+[ext_resource type="PackedScene" uid="uid://dgwcb1egqi7gb" path="res://Trees/TreeSpawner.tscn" id="5_71gnm"]
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
-[ext_resource type="Resource" uid="uid://p56udk8htcdq" path="res://adamJunk/TestTreeConfig.tres" id="6_a88iv"]
+[ext_resource type="PackedScene" uid="uid://diknhotxscvj" path="res://Trees/DefaultTree.tscn" id="6_f5ltf"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
@@ -22,6 +22,8 @@ navigation_polygon = SubResource("NavigationPolygon_5f7bl")
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("2_21owk")
 
+[node name="Stumptown" type="Node2D" parent="."]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.3, 0.3)
 
@@ -31,10 +33,13 @@ zoom = Vector2(0.3, 0.3)
 position = Vector2(400, -120)
 vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
 
-[node name="Tree" parent="." instance=ExtResource("3_83kts")]
-position = Vector2(-1590, -795)
-Config = ExtResource("6_a88iv")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_460aj")
+volume_db = -17.859
 autoplay = true
+
+[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown") instance=ExtResource("5_71gnm")]
+Stumptown = NodePath("../Stumptown")
+
+[node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
+position = Vector2(-1949, -1160)
