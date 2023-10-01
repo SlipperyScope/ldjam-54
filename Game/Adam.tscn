@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cphjvbyftniah"]
+[gd_scene load_steps=12 format=3 uid="uid://cphjvbyftniah"]
 
 [ext_resource type="Script" path="res://Adam.cs" id="1_8xl31"]
 [ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_cy2hk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://csn0m63ex4cr2" path="res://Andrew/Tree.tscn" id="6_dfk5q"]
 [ext_resource type="Texture2D" uid="uid://ci7wijjrkw1fj" path="res://art/tree.png" id="6_yfe36"]
 [ext_resource type="Script" path="res://Andrew/TreeConfig.cs" id="7_fxpdi"]
+[ext_resource type="PackedScene" uid="uid://dlcg1ur4av0pc" path="res://adamJunk/Stump.tscn" id="8_46u3p"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_c2xr1"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
@@ -54,3 +55,6 @@ vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086
 [node name="Tree" parent="." instance=ExtResource("6_dfk5q")]
 position = Vector2(-729, -28)
 Config = SubResource("Resource_ixocl")
+
+[node name="Stump" parent="." instance=ExtResource("8_46u3p")]
+position = Vector2(-232, 150)
