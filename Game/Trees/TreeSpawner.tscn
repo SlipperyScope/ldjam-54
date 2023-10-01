@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgwcb1egqi7gb"]
+[gd_scene load_steps=10 format=3 uid="uid://dgwcb1egqi7gb"]
 
 [ext_resource type="Script" path="res://Trees/TreeSpawner.cs" id="1_ak27c"]
 [ext_resource type="Script" path="res://Sounds/RandomSound2D.cs" id="2_b3nch"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://crngghogncigp" path="res://Sounds/Tree04.wav" id="6_xdhcd"]
 [ext_resource type="AudioStream" uid="uid://dt6sdc8e6mu66" path="res://Sounds/Tree05.wav" id="7_whifr"]
 [ext_resource type="AudioStream" uid="uid://d4h14fdjn15nm" path="res://Sounds/Tree06.wav" id="8_7r1xl"]
+[ext_resource type="AudioStream" uid="uid://bix40ognmub6p" path="res://Sounds/Felled.wav" id="9_gw8iq"]
 
 [node name="TreeSpawner" type="Node2D"]
 script = ExtResource("1_ak27c")
@@ -18,3 +19,9 @@ unique_name_in_owner = true
 script = ExtResource("2_b3nch")
 Sounds = [ExtResource("3_8j2bn"), ExtResource("4_i0apq"), ExtResource("5_geman"), ExtResource("6_xdhcd"), ExtResource("7_whifr"), ExtResource("8_7r1xl")]
 Volume_dB = 0.8
+
+[node name="Felled" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_b3nch")
+Sounds = [ExtResource("9_gw8iq")]
+GamejamOffsetForTreeFellSound = 0.05

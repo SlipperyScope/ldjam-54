@@ -37,6 +37,9 @@ public partial class RandomSound2D : Node2D
     [Export(PropertyHint.Range, "-5,5,0.1,or_greater,or_less")]
     private Single Volume_dB = 1;
 
+    [Export]
+    private Single GamejamOffsetForTreeFellSound = 0f;
+
     private AudioStreamPlayer2D Player2D;
 
     private AudioStreamPlayer PlayerOmni;
@@ -72,13 +75,13 @@ public partial class RandomSound2D : Node2D
         {
             Player2D.PitchScale = 1f - PitchVariation + GD.Randf() * PitchVariation;
             Player2D.Stream = Sounds[(Int32)(GD.Randi() % Sounds.Count)];
-            Player2D.Play();
+            Player2D.Play(GamejamOffsetForTreeFellSound);
         }
         else
         {
             PlayerOmni.PitchScale = 1f - PitchVariation + GD.Randf() * PitchVariation;
             PlayerOmni.Stream = Sounds[(Int32)(GD.Randi() % Sounds.Count)];
-            PlayerOmni.Play();
+            PlayerOmni.Play(GamejamOffsetForTreeFellSound);
         }
     }
 }

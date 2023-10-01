@@ -24,12 +24,14 @@ public partial class TreeSpawner : Node
     private Double Next = 0f;
 
     private RandomSound2D GrowSound;
+    private RandomSound2D Felled;
 
     public override void _EnterTree()
     {
         if (Stumptown is null) throw new NullReferenceException($"{nameof(Stumptown)} is not set");
 
         GrowSound = GetNodeOrNull<RandomSound2D>($"{nameof(GrowSound)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(GrowSound)}");
+        Felled = GetNodeOrNull<RandomSound2D>($"{nameof(Felled)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(Felled)}");
 
         Next = SpawnInterval;
     }
@@ -52,9 +54,11 @@ public partial class TreeSpawner : Node
         {
             Stumptown.AddChild(e);
             e.GlobalTransform = tree.AsNode.GlobalTransform;
+            Felled.GlobalPosition = tree.AsNode.GlobalPosition;
             Trees.Remove(tree);
             RemoveChild(tree.AsNode);
             tree.AsNode.QueueFree();
+            Felled.Play();
         }
         else
         {
