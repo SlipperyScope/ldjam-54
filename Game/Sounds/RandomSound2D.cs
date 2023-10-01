@@ -50,12 +50,14 @@ public partial class RandomSound2D : Node2D
             Player2D.MaxDistance = MaxDistance;
             Player2D.Attenuation = Attenuation;
             Player2D.VolumeDb = Volume_dB;
+            Player2D.MaxPolyphony = 8;
         }
         else
         {
             PlayerOmni = new AudioStreamPlayer();
             AddChild(PlayerOmni);
             PlayerOmni.VolumeDb = Volume_dB;
+            PlayerOmni.MaxPolyphony = 8;
         }
     }
 

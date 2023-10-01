@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.Sounds;
 using Godot;
 
 namespace Game.Trees;
@@ -22,9 +23,13 @@ public partial class TreeSpawner : Node
     private Double Time = 0d;
     private Double Next = 0f;
 
+    private RandomSound2D GrowSound;
+
     public override void _EnterTree()
     {
         if (Stumptown is null) throw new NullReferenceException($"{nameof(Stumptown)} is not set");
+
+        GrowSound = GetNodeOrNull<RandomSound2D>($"{nameof(GrowSound)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(GrowSound)}");
 
         Next = SpawnInterval;
     }
@@ -84,5 +89,7 @@ public partial class TreeSpawner : Node
         tree.Felled += OnTreeFelled;
         AddChild(tree.AsNode);
         tree.AsNode.GlobalTransform = seed.GlobalTransform;
+        GrowSound.GlobalPosition = tree.AsNode.GlobalPosition;
+        GrowSound.Play();
     }
 }
