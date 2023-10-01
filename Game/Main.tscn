@@ -70,8 +70,9 @@ stream = ExtResource("6_460aj")
 volume_db = -17.859
 autoplay = true
 
-[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown") instance=ExtResource("5_71gnm")]
+[node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown", "Camp") instance=ExtResource("5_71gnm")]
 Stumptown = NodePath("../Stumptown")
+Camp = NodePath("../Camp/Area2D")
 
 [node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
 position = Vector2(-2, -1341)
