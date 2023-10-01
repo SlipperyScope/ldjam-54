@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://diknhotxscvj"]
+
+[ext_resource type="Script" path="res://Trees/DefaultTree.cs" id="1_5qrch"]
+[ext_resource type="SpriteFrames" uid="uid://b7gtffl421n88" path="res://Trees/DefaultTreeSprite.tres" id="1_hk3va"]
+[ext_resource type="Resource" uid="uid://ctb0gl7kjm6qn" path="res://Trees/DefaultTreeConfig.tres" id="2_mjfd1"]
+
+[node name="DefaultTree" type="Node2D"]
+script = ExtResource("1_5qrch")
+Config = ExtResource("2_mjfd1")
+
+[node name="Bounds" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+
+[node name="Seedler" type="ShapeCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(0, 0)
+margin = 1.0
+max_results = 1
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Obstacle" type="NavigationObstacle2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = ExtResource("1_hk3va")
