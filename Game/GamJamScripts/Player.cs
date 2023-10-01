@@ -1,8 +1,11 @@
 using Game.Andrew;
+using Game.Axes;
 using Game.Sounds;
 using Game.Trees;
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Game;
 
@@ -16,14 +19,19 @@ public partial class Player : CharacterBody2D
     float accel = 7.0f;
 
     public bool chopping = false;
-    int axeDamage = 1;
-    float axeTime = 1.0f;
 
     private Double MaxStepInterval = 1d;
     private Double MinStepInterval = .25d;
     private Double NextStep = Double.MaxValue;
     private Double PrevStep = 0f;
     private Double Time = 0f;
+
+    private IAxe Axe;
+    
+    //Just for testing
+    private List<IAxe> TestAxes = new List<IAxe> { new DefaultAxe(), new StrongAxe(), new FastAxe(), new LongAxe() };
+    private int testAxesIndex = 0;
+    //
 
     public CanvasItem targetTree;
 
@@ -36,6 +44,7 @@ public partial class Player : CharacterBody2D
         chopSfx = GetNode<AudioStreamPlayer2D>("ChopSfx");
         Steppies = GetNodeOrNull<RandomSound2D>($"%{nameof(Steppies)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} node named {nameof(Steppies)}");
 
+        Axe = new DefaultAxe();
         axeSprite = GetNode<Sprite2D>("Axe");
     }
 
@@ -64,22 +73,22 @@ public partial class Player : CharacterBody2D
         #endregion
 
         Vector2 pos = GetGlobalTransformWithCanvas().Origin;
-        if (targetTree != null && pos.DistanceTo(targetTree.GetGlobalTransformWithCanvas().Origin) < 85) {
+        if (targetTree != null && pos.DistanceTo(targetTree.GetGlobalTransformWithCanvas().Origin) < Axe.getRange()) {
             nav.TargetPosition = pos;
             if (!chopping)
             {
                 chopping = true;
                 Tween tween = GetTree().CreateTween();
                 tween.TweenProperty(axeSprite, "visible", true, 0);
-                tween.TweenProperty(axeSprite, "rotation_degrees", 0, axeTime);
+                tween.TweenProperty(axeSprite, "rotation_degrees", 0, Axe.getSwingTime());
                 tween.TweenProperty(axeSprite, "visible", false, 0);
                 tween.TweenProperty(axeSprite, "rotation_degrees", -90, 0);
 
-                await ToSignal(GetTree().CreateTimer(axeTime), "timeout");
+                await ToSignal(GetTree().CreateTimer(Axe.getSwingTime()), "timeout");
                 chopSfx.PitchScale = (Single)GD.RandRange(0.95d, 1.05d);
                 chopSfx.Play();
                 GD.Print("chop");
-                if ((targetTree as ITree).DoAHit(axeDamage)) {
+                if ((targetTree as ITree).DoAHit(Axe.GetDamage())) {
                     GD.Print("tree felled!");
                    // targetTree.CallDeferred("queue_free"); //should eventually change to stump and stop spawning
                     targetTree = null;
@@ -117,6 +126,10 @@ public partial class Player : CharacterBody2D
                 nav.TargetPosition = eventMouseButton.Position;
             }
         }
+
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed) {
+			if (keyEvent.Keycode == Key.Space) TestChangeAxe();
+		}
     }
 
     private void Move(Vector2 navVelocity)
@@ -127,5 +140,15 @@ public partial class Player : CharacterBody2D
         {
             Rotation = Velocity.Angle();
         }
+    }
+
+    private void TestChangeAxe()
+    {
+        if (++testAxesIndex >= TestAxes.Count) {
+            testAxesIndex = 0;
+        }
+
+        Axe = TestAxes.ElementAt(testAxesIndex);
+        GD.Print("Switch axe to: " + Axe.getName());
     }
 }
