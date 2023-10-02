@@ -33,6 +33,7 @@ zoom = Vector2(0.5, 0.5)
 [node name="Camp" parent="." instance=ExtResource("4_wxoxb")]
 position = Vector2(-204, 190)
 WinSpeed = 6.0
+WinDamage = 1.6
 
 [node name="Player" parent="." instance=ExtResource("3_l4o8g")]
 
@@ -49,13 +50,17 @@ autoplay = true
 Stumptown = NodePath("../Stumptown")
 Camp = NodePath("../Camp")
 
-[node name="DefaultTree3" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
-position = Vector2(-218, -565)
+[node name="DefaultTree2" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
+position = Vector2(929, -1324)
+
+[node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
+position = Vector2(-1100, -1346)
 
 [node name="ExclusionZone" type="Area2D" parent="TreeSpawner"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TreeSpawner/ExclusionZone"]
-polygon = PackedVector2Array(3316, 1821, 3348, -2274, -3522, -2414, -3579, 2126, 3380, 2272, 3380, 1110, -2183, 1062, -2183, -1354, 2239, -1363, 2218, 1796)
+position = Vector2(-228, 733)
+polygon = PackedVector2Array(4955, 2357, 4831, -3941, -4397, -3979, -4449, 2353, 208, 2395, 304, 209, -1609, 321, -2299, 601, -2260, -2351, -850, -2346, 1184, -2345, 2789, -2337, 2773, 793, 2187, 350, 333, 209, 227, 2405)
 
 [node name="Ocean" parent="." instance=ExtResource("7_sfqmv")]
 position = Vector2(-63, -36)

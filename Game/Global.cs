@@ -49,14 +49,7 @@ public partial class Global : Node
 
     private readonly Dictionary<String, Int32> MurderLog = new();
 
-    public List<DeceasedData> Logbook
-    {
-        get
-        {
-            var maxLength = MurderLog.Count is not 0 ? MurderLog.Keys.Max(x => x.Length) : 0;
-            return MurderLog.Select(kvp => new DeceasedData(kvp.Key.PadLeft(maxLength), GetRandomDeathText(), kvp.Value)).ToList();
-        }
-    }
+    public List<DeceasedData> Logbook => MurderLog.Select(kvp => new DeceasedData(kvp.Key, GetRandomDeathText(), kvp.Value)).ToList();
 
     private String GetRandomDeathText() => Messages[(Int32)(GD.Randi() % Messages.Count)];
 
@@ -69,6 +62,7 @@ public partial class Global : Node
         "pondered but then was stumped",
         "got back to it's roots",
         "learned to do the splits",
+        "ended up with split custody",
         "logged off for the last time",
         "didn't even have a stake in it",
         "got fired for being high",
@@ -79,7 +73,19 @@ public partial class Global : Node
         "was torn limb from limb",
         "looked out and sawdust",
         "was really torn up over it",
-        "found it's finaly resting place"
+        "found it's final resting place",
+        "got a bunch of splinters",
+        "better beleaf in a higher power",
+        "was axed for the route",
+        "disembarked from this world",
+        "had the wrong axecent",
+        "made an end-user log",
+        "was in the shady part of town",
+        "was with seedy characters",
+        "got caught up in a cord",
+        "suffered permanent alderations",
+        "had acute limbic dissociation",
+        "had the life sapped from it"
     };
 
     /// <summary>

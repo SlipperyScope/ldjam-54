@@ -49,7 +49,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     {
         _ = Config ?? throw new NullReferenceException(nameof(Config));
         TreeName ??= Config.Name;
-        HitsRemaining = OverrideSpawn ? Config.HitPoints : Config.HitPointsAtSpawn;
+        HitsRemaining = Config.HitPointsAtSpawn;
         this.Global().Beat += Wiggle;
     }
 

@@ -20,8 +20,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cxv5y"]
-radius = 142.48
-height = 515.316
+radius = 182.873
+height = 666.672
 
 [sub_resource type="Animation" id="Animation_1plsp"]
 resource_name = "Denoob"
@@ -52,6 +52,7 @@ script = ExtResource("1_0ufm5")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+scale = Vector2(1.28707, 1.28707)
 sprite_frames = SubResource("SpriteFrames_jen5d")
 
 [node name="CampArea" type="Area2D" parent="."]
@@ -60,25 +61,22 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CampArea"]
-position = Vector2(-7, 14)
+position = Vector2(-11, 18)
 rotation = -1.50579
 shape = SubResource("CapsuleShape2D_cxv5y")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-radius = 5.0
-vertices = PackedVector2Array(-247, 19, -190, -98, -98, -64, -162, 67)
+position = Vector2(0, 3)
+vertices = PackedVector2Array(-212, 65, -300, 20, -238, -116, -143, -77)
 
 [node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="."]
-radius = 5.0
-vertices = PackedVector2Array(-11, 103, -31, 54, -31, 1, -14, -28, 35, -53, 88, -41, 131, -10, 147, 34, 136, 83, 87, 107, 22, 115)
+vertices = PackedVector2Array(7, 106, -15, 69, -19, 32, -3, -9, 33, -28, 65, -32, 125, -29, 161, 5, 164, 50, 150, 89, 112, 118, 83, 130, 50, 129)
 
 [node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="."]
-radius = 5.0
-vertices = PackedVector2Array(214, 27, 151, -60, 167, -75, 236, 14)
+vertices = PackedVector2Array(282, 32, 195, -77, 219, -92, 305, 22)
 
 [node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="."]
-radius = 5.0
-vertices = PackedVector2Array(177, 102, 170, 90, 173, 76, 188, 68, 200, 76, 204, 92, 194, 103)
+vertices = PackedVector2Array(233, 130, 225, 116, 232, 98, 247, 98, 256, 112, 250, 124)
 
 [node name="NoobZone" type="Area2D" parent="."]
 
@@ -94,7 +92,7 @@ libraries = {
 
 [node name="WinBubble" type="Area2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(55, 34)
+position = Vector2(69, 47)
 scale = Vector2(0.335, 0.335)
 collision_layer = 4
 collision_mask = 4

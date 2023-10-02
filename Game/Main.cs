@@ -14,23 +14,27 @@ public partial class Main : Node
         this.Global().GameLose += GameLose;
     }
 
-    private void GameLose(Object sender, EventArgs e)
-    {
-        var board = GetNode<Deceased>("%DeceasedBoard");
-        board.Visible = true;
-        var log = this.Global().Logbook;
-        var pad = log.Count is not 0 ? log.Max(e => e.Name.Length) : 0;
-        log.Add(new("You".PadLeft(pad), "💀💀 allowed the forest to take you 💀💀", 1));
-        board.Populate(log);
-    }
+    private void GameLose(Object sender, EventArgs e) => GameOver(false);
+    private void GameWon(Object sender, EventArgs e) => GameOver(true);
 
-    private void GameWon(Object sender, EventArgs e)
+    private void GameOver(Boolean won)
     {
         var board = GetNode<Deceased>("%DeceasedBoard");
+
+        var jerry = new DeceasedData("Jerry", "Oh, how the mighty have fallen", 0);
+        var self = new DeceasedData("You", won switch
+        { true => "🌳🫷🏻 dominated with confident finality 🫸🏻🌲",
+          false => "💀💀 allowed the forest to take you 💀💀"
+        }, 1);
+
+        var log = this.Global().Logbook.OrderBy(e => e.Deaths).ToList();
+        log.Add(jerry);
+        log.Add(self);
+
+        var pad = log.Max(e => e.Name.Length);
+        log = log.Select(e => e with { Name = e.Name.PadLeft(pad) }).ToList();
+
         board.Visible = true;
-        var log = this.Global().Logbook;
-        var pad = log.Count is not 0 ? log.Max(e => e.Name.Length) : 0;
-        log.Add(new("You".PadLeft(pad), "😶😐 dominated with confident finality 😑🫥", 1));
         board.Populate(log);
     }
 }

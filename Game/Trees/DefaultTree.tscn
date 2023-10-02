@@ -23,9 +23,10 @@ max_results = 1
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="Obstacle" type="NavigationObstacle2D" parent="."]
-unique_name_in_owner = true
-
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = ExtResource("1_hk3va")
+
+[node name="Obstacle" type="NavigationObstacle2D" parent="."]
+unique_name_in_owner = true
+radius = 102.17

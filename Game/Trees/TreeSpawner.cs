@@ -53,10 +53,7 @@ public partial class TreeSpawner : Node
 
     private void Camp_AreaEntered(Area2D area)
     {
-        //GD.Print(area, area.GetParent());
-
-        //GD.PushWarning("Lol, you lose");
-        Lose = Time + 4d;
+        Lose = Time + 5d;
         Next = Double.MaxValue;
     }
 
@@ -136,7 +133,7 @@ public partial class TreeSpawner : Node
 
     private void SendWin() => this.Global().WinGame();
 
-    public override void _PhysicsProcess(Double delta)
+    public override void _Process(Double delta)
     {
         Time += delta;
 
@@ -162,11 +159,11 @@ public partial class TreeSpawner : Node
 
         if (Time >= Lose)
         {
+            Lose = Double.MaxValue;
             GD.Print("💀💀 Lol, you lose 💀💀");
+            Camp.CampArea.AreaEntered -= Camp_AreaEntered;
             this.Global().LoseGame();
             GrowFast();
-            Next = 0f;
-            Camp.CampArea.AreaEntered -= Camp_AreaEntered;
         }
     }
 
@@ -193,31 +190,54 @@ public partial class TreeSpawner : Node
 
     private String GetRandomUniqueName()
     {
-        var unusedNames = SillyNames.Except(Trees.Keys).ToList();
+        var unusedNames = NameSetA.Except(Trees.Keys).ToList();
         if (unusedNames.Count is > 0)
         {
             return unusedNames[(Int32)(GD.Randi() % unusedNames.Count)];
         }
         else
         {
-            unusedNames = NormalNames.Except(Trees.Keys).ToList();
+            unusedNames = NameSetB.Except(Trees.Keys).ToList();
             if (unusedNames.Count is > 0)
             {
                 return unusedNames[(Int32)(GD.Randi() % unusedNames.Count)];
             }
             else
             {
-                //throw new Exception("You fool, you absolute baffoon, you utterly incompetant single celled organism - you did not make enough name!");
-                GD.PushWarning("You fool, you absolute baffoon, you utterly incompetant single celled organism - you did not make enough name!");
-                StopSpawn = true;
-                return null;
+                unusedNames = NameSetC.Except(Trees.Keys).ToList();
+                if (unusedNames.Count is > 0)
+                {
+                    return unusedNames[(Int32)(GD.Randi() % unusedNames.Count)];
+                }
+                else
+                {
+                    unusedNames = NormalNames.Except(Trees.Keys).ToList();
+                    if (unusedNames.Count is > 0)
+                    {
+                        return unusedNames[(Int32)(GD.Randi() % unusedNames.Count)];
+                    }
+                    else
+                    {
+                        var i = 0ul;
+                        String name;
+                        var c = 0ul;
+                        do
+                        {
+                            name = $"bonus name {i++:00}";
+                        } while (Trees.ContainsKey(name) is true && ++c < 100000ul);
+
+                        if (c >= 100000ul)
+                            GD.PushWarning("holy balls man");
+
+                        return name;
+                    }
+                }
             }
         }
     }
 
-    private List<String> SillyNames = new()
+    private List<String> NameSetA = new()
     {
-        "Jerry", 
         "Bertha", 
         "Ebenezer", 
         "Mildred", 
@@ -238,6 +258,11 @@ public partial class TreeSpawner : Node
         "Algernon", 
         "Mabel", 
         "Clement", 
+        "Zara",
+    };
+
+    private List<String> NameSetB = new()
+    {
         "Myrtle", 
         "Basil", 
         "Eunice", 
@@ -256,8 +281,12 @@ public partial class TreeSpawner : Node
         "Lionel", 
         "Muriel", 
         "Melvin" , 
-        "Prudence" , 
-        "Norman","Adonis", "Astrid", "Beatrix", "Blaine", "Bodhi", "Briar", "Caspian", "Coraline", "Daphne", "Darius", "Delilah", "Dorian", "Elodie", "Emrys", "Esme", "Finnick", "Freya", "Gideon", "Harlow", "Hugo", "Imogen", "Iris", "Jasper", "Juno", "Kaius", "Lara", "Leander", "Lennox", "Lila", "Lorelei", "Magnus", "Maren", "Matteo", "Mira", "Nadia", "Nico", "Odette", "Orion", "Oscar", "Phoebe", "Remy", "Rhea", "Ronan", "Ruby", "Sasha", "Sawyer", "Seraphina", "Talia", "Thalia", "Zara"
+        "Prudence" ,
+    };
+
+    private List<String> NameSetC = new()
+    {
+        "Norman","Adonis", "Astrid", "Beatrix", "Blaine", "Bodhi", "Briar", "Caspian", "Coraline", "Daphne", "Darius", "Delilah", "Dorian", "Elodie", "Emrys", "Esme", "Finnick", "Freya", "Gideon", "Harlow", "Hugo", "Imogen", "Iris", "Jasper", "Juno", "Kaius", "Lara", "Leander", "Lennox", "Lila", "Lorelei", "Magnus", "Maren", "Matteo", "Mira", "Nadia", "Nico", "Odette", "Orion", "Oscar", "Phoebe", "Remy", "Rhea", "Ronan", "Ruby", "Sasha", "Sawyer", "Seraphina", "Talia", "Thalia"
     };
 
     private List<String> NormalNames = new()
