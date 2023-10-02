@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnyasglu0bbg4"]
+
+[ext_resource type="Texture2D" uid="uid://dr6npekca3pxf" path="res://art/Cards/boot.png" id="1_1ry8d"]
+[ext_resource type="Script" path="res://NotTreesOrAxes/Card.cs" id="1_mvx2q"]
+
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mvx2q")
+
+[node name="Face" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_1ry8d")

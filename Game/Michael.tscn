@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cch5li15ghn3v"]
+[gd_scene load_steps=7 format=3 uid="uid://cch5li15ghn3v"]
 
 [ext_resource type="Texture2D" uid="uid://cql150uiqlbh0" path="res://art/placeholder/player.png" id="1_mprmr"]
 [ext_resource type="Script" path="res://Michael.cs" id="1_u0sim"]
 [ext_resource type="Script" path="res://Global.cs" id="3_2xdpj"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="4_jxa2o"]
 [ext_resource type="PackedScene" uid="uid://b05utxmn0yeun" path="res://NotTreesOrAxes/Ocean.tscn" id="5_6ippb"]
+[ext_resource type="PackedScene" uid="uid://bsm21pxt0kdkc" path="res://NotTreesOrAxes/CardSelect.tscn" id="6_hgbq6"]
 
 [node name="Michael" type="Node2D"]
 position = Vector2(527, 332)
@@ -32,3 +33,10 @@ texture = ExtResource("4_jxa2o")
 
 [node name="Ocean" parent="." instance=ExtResource("5_6ippb")]
 position = Vector2(-6, -2)
+
+[node name="CardSelect" parent="." instance=ExtResource("6_hgbq6")]
+offset_left = -1121.0
+offset_top = 121.0
+offset_right = -1121.0
+offset_bottom = 121.0
+Cards = PackedStringArray("sunfish", "boot", "bullKelp")
