@@ -31,6 +31,7 @@ public partial class Global : Node
     public bool isRunning = false;
 
     public Player player;
+    public CardSelect cardSelect;
 
     public event EventHandler FireLit;
     public void LightFire() => FireLit?.Invoke(this, new());
@@ -145,6 +146,15 @@ public partial class Global : Node
         if (player is not null && !player.chopping && !player.fishing) {
             player.fishIntent = true;
         }
+    }
+
+    public void CardSelectScreen() {
+        cardSelect.Toggle();
+        cardSelect.SetCards(new string[]{"oldBoot", "sunfish", "bullKelp"});
+    }
+
+    public void DismissCardSelectScreen() {
+        cardSelect.Toggle();
     }
 }
 

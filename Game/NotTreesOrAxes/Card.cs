@@ -23,9 +23,12 @@ public partial class Card : Control
 		foreach (var c in GetChildren()) {
 			GD.Print(c);
 		}
-		CardSprite.Texture = Textures[Face] ?? throw new Exception($"Could not find texture for '{Face}'");
 
-		SizeFlagsHorizontal = SizeFlags.Expand & SizeFlags.ShrinkCenter;
+		if (Face is not null) {
+			CardSprite.Texture = Textures[Face] ?? throw new Exception($"Could not find texture for '{Face}'");
+		}
+
+		SizeFlagsHorizontal = (SizeFlags)((int)SizeFlags.Expand + (int)SizeFlags.ShrinkCenter);
 		SizeFlagsVertical = SizeFlags.Fill;
 	}
 

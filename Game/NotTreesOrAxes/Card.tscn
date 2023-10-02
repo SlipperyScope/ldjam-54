@@ -13,5 +13,5 @@ grow_vertical = 2
 script = ExtResource("1_mvx2q")
 
 [node name="Face" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_1ry8d")

@@ -27,12 +27,13 @@ text = "Game Time:"
 script = ExtResource("3_2xdpj")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(21.3334, 12)
-scale = Vector2(0.319444, 0.319444)
+position = Vector2(390, 211)
+scale = Vector2(0.511458, 0.503704)
 texture = ExtResource("4_jxa2o")
 
 [node name="Ocean" parent="." instance=ExtResource("5_6ippb")]
-position = Vector2(-6, -2)
+position = Vector2(354, 183)
+scale = Vector2(1.6, 1.6)
 
 [node name="CardSelect" parent="." instance=ExtResource("6_hgbq6")]
 offset_left = -1121.0
