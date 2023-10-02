@@ -37,18 +37,35 @@ public partial class CardSelect : Control
 	}
 
     public void SetCards(string[] cards) {
+		var g = this.Global();
+
 		Cards = cards;
 		while (CardCollection.GetChildCount() > 0) {
 			CardCollection.RemoveChild(CardCollection.GetChild(0));	
 		}
 
-		foreach (var c in Cards) {
+		for (var i = 0; i < Cards.Length; i++) {
+			var c = Cards[i];
 			var CardInstance = CardScene.Instantiate<Card>();
 			CardInstance.Face = c;
+			CardInstance.idx = i;
 			CardInstance.Pressed += () => {
-				GD.Print($"Clicked card '{CardInstance.Face}'");
 				// Set card in inventory
-				// Remove card from selection
+				if (g.inventory.Count < g.maxInventorySize) {
+					g.inventory.Add(CardInstance.Face);
+					GD.Print(g.inventory.ToArray());
+
+					// Dismiss early if this is the last card
+					if (Cards.Length == 1) {
+						g.DismissCardSelectScreen();
+					}
+
+					var newCards = new List<string>(Cards);
+					newCards.RemoveAt(CardInstance.idx);
+					SetCards(newCards.ToArray());
+				} else {
+					GD.Print("Bonk, inventory full");
+				}
 			};
 			CardCollection.AddChild(CardInstance);
 		}

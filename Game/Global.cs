@@ -32,6 +32,8 @@ public partial class Global : Node
 
     public Player player;
     public CardSelect cardSelect;
+    public List<string> inventory = new();
+    public readonly uint maxInventorySize = 5;
 
     public event EventHandler FireLit;
     public void LightFire() => FireLit?.Invoke(this, new());
