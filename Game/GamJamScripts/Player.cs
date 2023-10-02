@@ -93,7 +93,7 @@ public partial class Player : CharacterBody2D
         Vector2 pos = GetGlobalTransformWithCanvas().Origin;
         if (targetTree != null && pos.DistanceTo(targetTree.GetGlobalTransformWithCanvas().Origin) < Axe.getRange()) {
             nav.TargetPosition = pos;
-            if (!chopping)
+            if (!chopping && !cancelChop)
             {
                 chopping = true;
                 GlobalRotation = pos.AngleToPoint(targetTree.GetGlobalTransformWithCanvas().Origin);
@@ -159,6 +159,7 @@ public partial class Player : CharacterBody2D
                 nav.TargetPosition = eventMouseButton.Position;
                 if (chopping) {
                     cancelChop = true;
+                    chopping = false;
                     axeSprite.Visible = false;
                 }
             }
