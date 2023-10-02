@@ -33,6 +33,7 @@ public partial class Global : Node
 
     public Player player;
     public CardSelect cardSelect;
+    public Inventory InventoryUI;
     public List<string> inventory = new();
     public readonly uint maxInventorySize = 5;
 
@@ -175,6 +176,18 @@ public partial class Global : Node
 
     public void DismissCardSelectScreen() {
         cardSelect.Toggle();
+    }
+
+    public void AddToInventory(string Face) {
+        if (inventory.Count >= maxInventorySize) return;
+
+        inventory.Add(Face);
+        InventoryUI.SetCards(inventory.ToArray());
+    }
+
+    public void RemoveFromInventoryAt(int Index) {
+        inventory.RemoveAt(Index);
+        InventoryUI.SetCards(inventory.ToArray());
     }
 }
 

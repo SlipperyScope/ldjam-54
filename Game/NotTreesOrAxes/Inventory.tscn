@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnigheswvpveg"]
+
+[ext_resource type="Script" path="res://NotTreesOrAxes/Inventory.cs" id="1_2j35r"]
+[ext_resource type="PackedScene" uid="uid://cnyasglu0bbg4" path="res://NotTreesOrAxes/Card.tscn" id="2_li3xi"]
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_2j35r")
+
+[node name="Tray" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2155.0
+offset_top = -520.0
+offset_right = -215.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="Card" parent="Tray" instance=ExtResource("2_li3xi")]
+layout_mode = 2
+Face = "oldBoot"
+Smol = true
+
+[node name="Card2" parent="Tray" instance=ExtResource("2_li3xi")]
+layout_mode = 2
+Face = "oldBoot"
+Smol = true
+
+[node name="Card3" parent="Tray" instance=ExtResource("2_li3xi")]
+layout_mode = 2
+Face = "oldBoot"
+Smol = true
+
+[node name="Card4" parent="Tray" instance=ExtResource("2_li3xi")]
+layout_mode = 2
+Face = "oldBoot"
+Smol = true
+
+[node name="Card5" parent="Tray" instance=ExtResource("2_li3xi")]
+layout_mode = 2
+Face = "oldBoot"
+Smol = true

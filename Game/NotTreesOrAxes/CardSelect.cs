@@ -52,7 +52,7 @@ public partial class CardSelect : Control
 			CardInstance.Pressed += () => {
 				// Set card in inventory
 				if (g.inventory.Count < g.maxInventorySize) {
-					g.inventory.Add(CardInstance.Face);
+					g.AddToInventory(CardInstance.Face);
 					GD.Print(g.inventory.ToArray());
 
 					// Dismiss early if this is the last card

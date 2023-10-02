@@ -11,9 +11,17 @@ public partial class Card : TextureButton
 		["oldBoot"] = GD.Load<Texture2D>("res://art/Cards/boot.png"),
 		["bullKelp"] = GD.Load<Texture2D>("res://art/Cards/bull-kelp.png"),
 		["underwaterCuttingTorch"] = GD.Load<Texture2D>("res://art/Cards/underwater-cutting-torch.png"),
+
+		["sunfish::smol"] = GD.Load<Texture2D>("res://art/Cards/smol/smol-sunfish.png"),
+		["swordfish::smol"] = GD.Load<Texture2D>("res://art/Cards/smol/smol-swordfish.png"),
+		["oldBoot::smol"] = GD.Load<Texture2D>("res://art/Cards/smol/smol-boot.png"),
+		["bullKelp::smol"] = GD.Load<Texture2D>("res://art/Cards/smol/smol-bull-kelp.png"),
+		["underwaterCuttingTorch::smol"] = GD.Load<Texture2D>("res://art/Cards/smol/smol-underwater-cutting-torch.png"),
 	};
 	[Export]
 	public string Face;
+	[Export]
+	public bool Smol = false;
 	public int idx = 0;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -24,7 +32,8 @@ public partial class Card : TextureButton
 		}
 
 		if (Face is not null) {
-			TextureNormal = Textures[Face] ?? throw new Exception($"Could not find texture for '{Face}'");
+			var key = Smol ? $"{Face}::smol" : Face;
+			TextureNormal = Textures[key] ?? throw new Exception($"Could not find texture for '{Face}'");
 		}
 
 		SizeFlagsHorizontal = (SizeFlags)((int)SizeFlags.Expand + (int)SizeFlags.ShrinkCenter);
