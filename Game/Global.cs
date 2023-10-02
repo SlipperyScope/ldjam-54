@@ -32,6 +32,9 @@ public partial class Global : Node
     public bool isRunning = false;
 
     public Player player;
+    public CardSelect cardSelect;
+    public List<string> inventory = new();
+    public readonly uint maxInventorySize = 5;
 
     public void Reset(String firstScene)
     {
@@ -163,6 +166,15 @@ public partial class Global : Node
         if (player is not null && !player.chopping && !player.fishing) {
             player.fishIntent = true;
         }
+    }
+
+    public void CardSelectScreen() {
+        cardSelect.Toggle();
+        cardSelect.SetCards(new string[]{"oldBoot", "sunfish", "bullKelp"});
+    }
+
+    public void DismissCardSelectScreen() {
+        cardSelect.Toggle();
     }
 }
 
