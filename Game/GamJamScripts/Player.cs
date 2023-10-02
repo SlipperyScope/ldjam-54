@@ -19,7 +19,7 @@ public partial class Player : CharacterBody2D
     int speed = 500;
     float accel = 7.0f;
 
-    private double fishDuration = 5f;
+    private double fishDuration = 1f;
     private double fishDelta = 0f;
 
     public bool chopping = false;

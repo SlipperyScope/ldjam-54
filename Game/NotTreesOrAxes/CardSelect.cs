@@ -17,6 +17,12 @@ public partial class CardSelect : Control
 		SetCards(Cards);
 		this.Global().cardSelect = this;
 		this.Toggle();
+
+		var layer = GetNode<CanvasLayer>("Bull");
+		var bgButton = GetNode<TextureButton>("Bull/Shit/BgButton");
+		bgButton.Pressed += () => {
+			this.Global().DismissCardSelectScreen();
+		};
 	}
 
 	public void Toggle() {
@@ -30,20 +36,6 @@ public partial class CardSelect : Control
 	{
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
-
-		if (@event is InputEventMouseButton mb)
-		{
-			if (mb.ButtonIndex == MouseButton.Left && mb.Pressed && Visible)
-			{
-				GD.Print("I've been clicked D:");
-				this.Global().DismissCardSelectScreen();
-			}
-		}
-    }
-
     public void SetCards(string[] cards) {
 		Cards = cards;
 		while (CardCollection.GetChildCount() > 0) {
@@ -53,6 +45,11 @@ public partial class CardSelect : Control
 		foreach (var c in Cards) {
 			var CardInstance = CardScene.Instantiate<Card>();
 			CardInstance.Face = c;
+			CardInstance.Pressed += () => {
+				GD.Print($"Clicked card '{CardInstance.Face}'");
+				// Set card in inventory
+				// Remove card from selection
+			};
 			CardCollection.AddChild(CardInstance);
 		}
 	}

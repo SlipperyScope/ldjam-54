@@ -16,11 +16,6 @@ script = ExtResource("1_yr753")
 [node name="Bull" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Card-select-bg" type="Sprite2D" parent="Bull"]
-scale = Vector2(0.495731, 0.499079)
-texture = ExtResource("1_ji35d")
-centered = false
-
 [node name="Shit" type="Control" parent="Bull"]
 layout_mode = 3
 anchors_preset = 15
@@ -31,28 +26,28 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="BgButton" type="TextureButton" parent="Bull/Shit"]
+layout_mode = 0
+offset_right = 3865.0
+offset_bottom = 2172.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("1_ji35d")
+
 [node name="Cards" type="HBoxContainer" parent="Bull/Shit"]
 layout_direction = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 132.0
-offset_top = 641.0
-offset_right = -116.0
-offset_bottom = -143.0
+offset_left = 84.0
+offset_top = 322.0
+offset_right = 4077.0
+offset_bottom = 1275.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.3, 0.3)
 alignment = 1
 
 [node name="Card" parent="Bull/Shit/Cards" instance=ExtResource("4_r3esq")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card2" parent="Bull/Shit/Cards" instance=ExtResource("4_r3esq")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card3" parent="Bull/Shit/Cards" instance=ExtResource("4_r3esq")]
 layout_mode = 2
 size_flags_horizontal = 6
