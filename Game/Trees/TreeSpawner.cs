@@ -15,7 +15,7 @@ public partial class TreeSpawner : Node
     /// Seconds between spawn attempts
     /// </summary>
     [Export]
-    private Single SpawnInterval = 1f;
+    private Single SpawnInterval = 2.5f;
 
     [Export]
     private Node2D Stumptown;

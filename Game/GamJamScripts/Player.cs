@@ -15,7 +15,8 @@ public partial class Player : CharacterBody2D
     private NavigationAgent2D nav;
     private AudioStreamPlayer2D chopSfx;
     private RandomSound2D Steppies;
-    int speed = 300;
+    private RandomSound2D Splasher;
+    int speed = 400;
     float accel = 7.0f;
 
     private double fishDuration = 5f;
@@ -49,6 +50,7 @@ public partial class Player : CharacterBody2D
         nav.VelocityComputed += Move;
         chopSfx = GetNode<AudioStreamPlayer2D>("ChopSfx");
         Steppies = GetNodeOrNull<RandomSound2D>($"%{nameof(Steppies)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} node named {nameof(Steppies)}");
+        Splasher = GetNodeOrNull<RandomSound2D>($"%{nameof(Splasher)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} node named {nameof(Splasher)}");
 
         Axe = new DefaultAxe();
         axeSprite = GetNode<Sprite2D>("Axe");
@@ -83,6 +85,7 @@ public partial class Player : CharacterBody2D
             GD.Print($"Fishing {fishDelta} of {fishDuration}");
             if (fishDelta > fishDuration) {
                 fishDelta = 0;
+                Splasher.Play();
                 fishing = false;
                 GetNode<Sprite2D>("FishingPole").Visible = false;
                 // Trigger loot select here
@@ -125,6 +128,7 @@ public partial class Player : CharacterBody2D
             fishing = true;
             fishIntent = false;
             GetNode<Sprite2D>("FishingPole").Visible = true;
+            Splasher.Play();
             nav.TargetPosition = pos;
             nav.Velocity = new Vector2(0, 0);
             return;

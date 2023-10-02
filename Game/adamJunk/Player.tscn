@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://w4vghr15lnc"]
+[gd_scene load_steps=14 format=3 uid="uid://w4vghr15lnc"]
 
 [ext_resource type="Script" path="res://GamJamScripts/Player.cs" id="1_21lx6"]
 [ext_resource type="Texture2D" uid="uid://jo7qi1mmgx2r" path="res://art/fishing-pole.png" id="2_fs6kb"]
@@ -10,6 +10,9 @@
 [ext_resource type="AudioStream" uid="uid://d1ug4q80dlyfs" path="res://Sounds/Step02.wav" id="7_wvdko"]
 [ext_resource type="AudioStream" uid="uid://rmgn0t1v2i7s" path="res://Sounds/Step03.wav" id="8_y10jy"]
 [ext_resource type="AudioStream" uid="uid://cpno14xv2fq2i" path="res://Sounds/Step04.wav" id="9_1u3cp"]
+[ext_resource type="AudioStream" uid="uid://b8ku0uytmdfv2" path="res://Sounds/Spash02.wav" id="11_wulau"]
+[ext_resource type="AudioStream" uid="uid://byjnlant27f1q" path="res://Sounds/Splash01.wav" id="12_gprpc"]
+[ext_resource type="AudioStream" uid="uid://ctbnl8eelgc16" path="res://Sounds/Splash03.wav" id="13_wbx4t"]
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(60.565, 35.19)
@@ -52,3 +55,9 @@ unique_name_in_owner = true
 script = ExtResource("5_2qynv")
 Sounds = [ExtResource("6_qhgsc"), ExtResource("7_wvdko"), ExtResource("8_y10jy"), ExtResource("9_1u3cp")]
 Attenuation = 0.535886
+
+[node name="Splasher" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(931.15, 26.5948)
+script = ExtResource("5_2qynv")
+Sounds = [ExtResource("11_wulau"), ExtResource("12_gprpc"), ExtResource("13_wbx4t")]
