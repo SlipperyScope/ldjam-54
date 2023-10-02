@@ -31,6 +31,9 @@ public partial class Global : Node
 
     public Player player;
 
+    public event EventHandler Won;
+    public void Win() => Won?.Invoke(this, new());
+
     /// <summary>
     /// Testing
     /// </summary>

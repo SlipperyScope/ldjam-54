@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bc1lvxesf3hu7"]
+[gd_scene load_steps=9 format=3 uid="uid://bc1lvxesf3hu7"]
 
+[ext_resource type="Script" path="res://NotTreesOrAxes/Camp.cs" id="1_0ufm5"]
 [ext_resource type="Texture2D" uid="uid://ddwh4y3luy18a" path="res://art/placeholder/camp.png" id="1_w8p0o"]
 [ext_resource type="Texture2D" uid="uid://bqd12c34ovi33" path="res://art/placeholder/camp_lit.png" id="2_261fg"]
 
@@ -42,14 +43,22 @@ _data = {
 "Denoob": SubResource("Animation_1plsp")
 }
 
-[node name="Camp" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqvg8"]
+radius = 106.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Camp" type="Node2D"]
+script = ExtResource("1_0ufm5")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_jen5d")
 
-[node name="SiteArea" type="Area2D" parent="."]
+[node name="CampArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SiteArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CampArea"]
 position = Vector2(-7, 14)
 rotation = -1.50579
 shape = SubResource("CapsuleShape2D_cxv5y")
@@ -71,7 +80,6 @@ radius = 5.0
 vertices = PackedVector2Array(177, 102, 170, 90, 173, 76, 188, 68, 200, 76, 204, 92, 194, 103)
 
 [node name="NoobZone" type="Area2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NoobZone"]
 polygon = PackedVector2Array(-1273, 311, -1021, -120, -598, -405, 20, -478, 687, -362, 1143, -9, 1317, 427, 1307, 911, -1301, 880)
@@ -81,3 +89,9 @@ autoplay = "Denoob"
 libraries = {
 "": SubResource("AnimationLibrary_bxa1a")
 }
+
+[node name="WinBubble" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinBubble"]
+shape = SubResource("CircleShape2D_cqvg8")
