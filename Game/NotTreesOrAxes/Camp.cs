@@ -36,6 +36,12 @@ public partial class Camp : Node2D
         this.Global().Beat += OnBeat;
         this.Global().FireLit += LightFire;
         this.Global().GameWin += GameWon;
+        this.Global().GameLose += GameLost;
+    }
+
+    private void GameLost(Object sender, EventArgs e)
+    {
+        WinBubble.AreaEntered -= Overlap;
     }
 
     private void GameWon(Object sender, EventArgs e)

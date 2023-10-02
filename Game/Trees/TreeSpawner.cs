@@ -48,18 +48,27 @@ public partial class TreeSpawner : Node
 
     private void FireLit(Object sender, EventArgs e)
     {
-        GrowFast();
+        //GrowFast();
+        Next = Double.MaxValue;
     }
 
     private void Camp_AreaEntered(Area2D area)
     {
+
+
         Lose = Time + 5d;
         Next = Double.MaxValue;
+        var tree = area.GetParent<ITree>();
+        tree.GodMode = true;
+        tree.AsNode.Modulate = Colors.Red;
+        GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();
+        Trees.Remove(Trees.First(p => p.Value == tree).Key);
+        GrowFast();
     }
 
     private void GrowFast()
     {
-        SpawnInterval = 0f;
+        SpawnInterval = .125f;
         Next = 0f;
         TreeGrowthBypass = true;
         foreach(var tree in Trees.Values)
@@ -141,6 +150,7 @@ public partial class TreeSpawner : Node
 
         if (Time >= Next && Trees.Count > 0)
         {
+
             var attempts = TreeGrowthBypass ? 100 : 0;
             do
             {
@@ -152,13 +162,13 @@ public partial class TreeSpawner : Node
                     dohalf = false;
                     break;
                 }
-
             } while (--attempts > 0);
-            Next += dohalf is true ? SpawnInterval / 2f : SpawnInterval;
+            while(Next < Time) Next += dohalf is true ? SpawnInterval / 2f : SpawnInterval;
         }
 
         if (Time >= Lose)
         {
+            while (Next < Time) Next += SpawnInterval;
             Lose = Double.MaxValue;
             GD.Print("💀💀 Lol, you lose 💀💀");
             Camp.CampArea.AreaEntered -= Camp_AreaEntered;

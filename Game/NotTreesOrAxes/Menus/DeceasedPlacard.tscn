@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cayam20k4c0b8"]
 
-[ext_resource type="FontFile" uid="uid://dd0dhp23ftoc4" path="res://NotTreesOrAxes/CascadiaCode.ttf" id="1_1w01q"]
-[ext_resource type="Script" path="res://NotTreesOrAxes/DeceasedPlackard.cs" id="1_nntyj"]
+[ext_resource type="Script" path="res://NotTreesOrAxes/Menus/DeceasedPlacard.cs" id="1_cb2uu"]
+[ext_resource type="FontFile" uid="uid://dd0dhp23ftoc4" path="res://NotTreesOrAxes/CascadiaCode.ttf" id="2_svsop"]
 
-[node name="DeceasedPlackard" type="MarginContainer"]
+[node name="DeceasedPlacard" type="MarginContainer"]
 custom_minimum_size = Vector2(32, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +16,7 @@ theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
-script = ExtResource("1_nntyj")
+script = ExtResource("1_cb2uu")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -38,7 +38,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_1w01q")
+theme_override_fonts/font = ExtResource("2_svsop")
 theme_override_font_sizes/font_size = 16
 text = "Miranda"
 
@@ -53,7 +53,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_1w01q")
+theme_override_fonts/font = ExtResource("2_svsop")
 theme_override_font_sizes/font_size = 16
 text = "was obliterated"
 
@@ -68,7 +68,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_1w01q")
+theme_override_fonts/font = ExtResource("2_svsop")
 theme_override_font_sizes/font_size = 16
 text = "17"
 
@@ -76,7 +76,7 @@ text = "17"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_1w01q")
+theme_override_fonts/font = ExtResource("2_svsop")
 theme_override_font_sizes/font_size = 16
 text = " "
 
@@ -85,6 +85,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_1w01q")
+theme_override_fonts/font = ExtResource("2_svsop")
 theme_override_font_sizes/font_size = 16
 text = "Time"

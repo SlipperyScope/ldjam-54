@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot;
 
-namespace Game.NotTreesOrAxes;
-public partial class DeceasedPlackard : Control
+namespace Game.NotTreesOrAxes.Menus;
+public partial class DeceasedPlacard : Control
 {
     public void UpdateInfo(DeceasedData data)
     {

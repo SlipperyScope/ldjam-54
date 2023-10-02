@@ -20,8 +20,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cxv5y"]
-radius = 182.873
-height = 666.672
+radius = 128.13
+height = 517.241
 
 [sub_resource type="Animation" id="Animation_1plsp"]
 resource_name = "Denoob"
@@ -49,6 +49,7 @@ radius = 60.407
 
 [node name="Camp" type="Node2D"]
 script = ExtResource("1_0ufm5")
+WinSpeed = 10.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -61,8 +62,8 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CampArea"]
-position = Vector2(-11, 18)
-rotation = -1.50579
+position = Vector2(4, 24)
+rotation = -1.44471
 shape = SubResource("CapsuleShape2D_cxv5y")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]

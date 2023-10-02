@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceolucpvtc56c"]
+[gd_scene load_steps=5 format=3 uid="uid://ceolucpvtc56c"]
 
-[ext_resource type="Script" path="res://NotTreesOrAxes/Deceased.cs" id="1_qexdr"]
+[ext_resource type="Script" path="res://NotTreesOrAxes/Menus/Deceased.cs" id="1_fijor"]
 [ext_resource type="AudioStream" uid="uid://b27huu75n7g3j" path="res://Sounds/Click.wav" id="2_5p6gb"]
+[ext_resource type="PackedScene" uid="uid://cayam20k4c0b8" path="res://NotTreesOrAxes/Menus/DeceasedPlacard.tscn" id="2_r8whr"]
+[ext_resource type="PackedScene" uid="uid://spa8ygbk18sp" path="res://NotTreesOrAxes/Menus/ReturnPlacard.tscn" id="3_bndbi"]
 
 [node name="Deceased" type="PanelContainer"]
 offset_right = 178.0
 offset_bottom = 614.0
 size_flags_horizontal = 3
-script = ExtResource("1_qexdr")
+script = ExtResource("1_fijor")
+PlacardScene = ExtResource("2_r8whr")
+ReturnPlacardScene = ExtResource("3_bndbi")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

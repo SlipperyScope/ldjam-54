@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Godot;
 
-namespace Game.NotTreesOrAxes;
+namespace Game.NotTreesOrAxes.Menus;
+
 public partial class Deceased : Control
 {
-    private const String PlackardPath = "res://NotTreesOrAxes/DeceasedPlackard.tscn";
-    private PackedScene PlackardScene;
+    [Export]
+    private PackedScene PlacardScene;
 
-    private VBoxContainer Plackards;
+    [Export]
+    private PackedScene ReturnPlacardScene;
+
+    private VBoxContainer Placards;
     private ScrollContainer Scroller;
     private AudioStreamPlayer Clicker;
 
@@ -23,8 +28,7 @@ public partial class Deceased : Control
 
     public override void _EnterTree()
     {
-        PlackardScene = ResourceLoader.Load<PackedScene>(PlackardPath);
-        Plackards = GetNode<VBoxContainer>("%Plackards");
+        Placards = GetNode<VBoxContainer>("%Plackards");
         Scroller = GetNode<ScrollContainer>("%Scroller");
         Clicker = GetNode<AudioStreamPlayer>("%Clicker");
     }
@@ -39,20 +43,29 @@ public partial class Deceased : Control
 
     private void OnBeat(Object sender, EventArgs e)
     {
-        AddPlackard(CurrentIndex++);
+        AddPlacard(CurrentIndex++);
         if (CurrentIndex >= DeceasedData.Count)
         {
+            AddReturnPlacard();
             CurrentIndex = 0;
             this.Global().Beat -= OnBeat;
         }
     }
 
-    private void AddPlackard(Int32 index)
+    private void AddPlacard(Int32 index)
     {
-        var plackard = PlackardScene.Instantiate<DeceasedPlackard>();
-        Plackards.AddChild(plackard);
-        Plackards.MoveChild(plackard, 0);
+        var plackard = PlacardScene.Instantiate<DeceasedPlacard>();
+        Placards.AddChild(plackard);
+        Placards.MoveChild(plackard, 0);
         plackard.UpdateInfo(DeceasedData[index]);
+        Clicker.Play();
+    }
+
+    private void AddReturnPlacard()
+    {
+        var plackard = ReturnPlacardScene.Instantiate<Control>();
+        Placards.AddChild(plackard);
+        Placards.MoveChild(plackard, 0);
         Clicker.Play();
     }
 }

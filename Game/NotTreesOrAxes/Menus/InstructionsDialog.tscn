@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3n2nl4u6eue5"]
+
+[ext_resource type="FontFile" uid="uid://dpjbag53a26os" path="res://NotTreesOrAxes/MAIAN.TTF" id="1_gb12n"]
+
+[sub_resource type="Theme" id="Theme_t3tdt"]
+default_font = ExtResource("1_gb12n")
+default_font_size = 24
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qatou"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[node name="InstructionsDialog" type="AcceptDialog"]
+title = "Instructions"
+initial_position = 2
+size = Vector2i(775, 278)
+visible = true
+theme = SubResource("Theme_t3tdt")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qatou")
+dialog_text = "Click the ground to move
+Click trees to chop them down
+Click water to fish for goodies
+Don't camp in the woods
+Find a way to light a fire
+If fishing and crafting didn't get done press ctrl+h to light the fire 🤷🏻🔥"
+dialog_hide_on_ok = false

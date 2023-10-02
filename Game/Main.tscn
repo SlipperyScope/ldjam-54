@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
 [ext_resource type="PackedScene" uid="uid://diknhotxscvj" path="res://Trees/DefaultTree.tscn" id="6_f5ltf"]
 [ext_resource type="PackedScene" uid="uid://b05utxmn0yeun" path="res://NotTreesOrAxes/Ocean.tscn" id="7_sfqmv"]
-[ext_resource type="PackedScene" uid="uid://ceolucpvtc56c" path="res://NotTreesOrAxes/Deceased.tscn" id="9_j67ld"]
+[ext_resource type="PackedScene" uid="uid://ceolucpvtc56c" path="res://NotTreesOrAxes/Menus/Deceased.tscn" id="9_j67ld"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
@@ -32,7 +32,7 @@ zoom = Vector2(0.5, 0.5)
 
 [node name="Camp" parent="." instance=ExtResource("4_wxoxb")]
 position = Vector2(-204, 190)
-WinSpeed = 6.0
+WinSpeed = 30.0
 WinDamage = 1.6
 
 [node name="Player" parent="." instance=ExtResource("3_l4o8g")]

@@ -1,0 +1,143 @@
+[gd_scene load_steps=6 format=3 uid="uid://duqy5kjqpkv6i"]
+
+[ext_resource type="Script" path="res://NotTreesOrAxes/Menus/TitleScene.cs" id="1_h3orf"]
+[ext_resource type="PackedScene" uid="uid://b7x3lall8mq6k" path="res://Main.tscn" id="2_sd4uc"]
+[ext_resource type="FontFile" uid="uid://dpjbag53a26os" path="res://NotTreesOrAxes/MAIAN.TTF" id="3_mg22y"]
+[ext_resource type="Texture2D" uid="uid://rw70hy4hyk1e" path="res://art/axe - Copy.png" id="4_pxgg0"]
+[ext_resource type="PackedScene" uid="uid://c3n2nl4u6eue5" path="res://NotTreesOrAxes/Menus/InstructionsDialog.tscn" id="5_rgktr"]
+
+[node name="TitleScene" type="Node2D" node_paths=PackedStringArray("Play", "Instructions", "Exit", "InstructionsDialog")]
+script = ExtResource("1_h3orf")
+Play = NodePath("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer/PlayButton")
+Instructions = NodePath("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/Instructions")
+Exit = NodePath("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/QuitButton")
+PlayScene = ExtResource("2_sd4uc")
+InstructionsDialog = NodePath("InstructionsDialog")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Title" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mg22y")
+theme_override_font_sizes/font_size = 256
+text = "clear"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("4_pxgg0")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Title2" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mg22y")
+theme_override_font_sizes/font_size = 256
+text = "ing
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(1, 1, 1, 0)
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "play"
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Instructions" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "instructions"
+
+[node name="PanelContainer4" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = " "
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "quit"
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(1, 1, 1, 0)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0)
+
+[node name="InstructionsDialog" parent="." instance=ExtResource("5_rgktr")]

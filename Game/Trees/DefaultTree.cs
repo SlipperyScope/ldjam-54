@@ -19,6 +19,7 @@ public interface ITree
     public Node2D AsNode { get; }
     public String TreeName { get; set; }
     public Boolean OverrideSpawn { get; set; }
+    public Boolean GodMode { get; set; }
     public Area2D Bounds { get; }
 }
 
@@ -37,7 +38,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
     public String TreeName { get; set; } = null;
     public Boolean OverrideSpawn { get; set; } = false;
-
+    public Boolean GodMode { get; set; } = false;
     public Area2D Bounds { get; private set; }
     private AnimatedSprite2D Sprite;
     private ShapeCast2D Seedler;
@@ -49,13 +50,18 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     {
         _ = Config ?? throw new NullReferenceException(nameof(Config));
         TreeName ??= Config.Name;
-        HitsRemaining = Config.HitPointsAtSpawn;
+        HitsRemaining = GodMode is true ? Single.MaxValue : Config.HitPointsAtSpawn;
         this.Global().Beat += Wiggle;
     }
 
     public override void _Process(Double delta)
     {
-        if (HitsRemaining < Config.HitPoints)
+        if (GodMode is true && HitsRemaining < Single.MaxValue)
+        {
+            HitsRemaining = Single.MaxValue;
+            UpdateSprite();
+        }
+        else if (HitsRemaining < Config.HitPoints)
         {
 
             HitsRemaining += (Growing is true ? Config.GrowthRate : Config.HealingRate) * (Single)delta;
@@ -71,7 +77,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
     private void Wiggle(Object sender, EventArgs e)
     {
-            RotationDegrees += GD.Randf() * 2f - 1f;
+        RotationDegrees += GD.Randf() * 2f - 1f;
     }
 
     public override void _Ready()

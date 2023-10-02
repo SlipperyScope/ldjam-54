@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Game.GamJamScripts;
 using Game.NotTreesOrAxes;
+using Game.NotTreesOrAxes.Menus;
 using Godot;
 
 namespace Game;
@@ -32,6 +33,19 @@ public partial class Global : Node
 
     public Player player;
 
+    public void Reset(String firstScene)
+    {
+        Beat = null;
+        FireLit = null;
+        GameWin = null;
+        GameLose = null;
+
+        Time = 0d;
+        NextBeat = 0d;
+        MurderLog.Clear();
+        GetTree().ChangeSceneToFile(firstScene);
+    }
+
     public event EventHandler FireLit;
     public void LightFire() => FireLit?.Invoke(this, new());
 
@@ -51,7 +65,7 @@ public partial class Global : Node
 
     public List<DeceasedData> Logbook => MurderLog.Select(kvp => new DeceasedData(kvp.Key, GetRandomDeathText(), kvp.Value)).ToList();
 
-    private String GetRandomDeathText() => Messages[(Int32)(GD.Randi() % Messages.Count)];
+    private String GetRandomDeathText() => Messages[(Int32)(GD.Randi() % Messages.Count)].PadRight(Messages.Max(m => m.Length));
 
     private List<String> Messages = new()
     {
@@ -85,7 +99,11 @@ public partial class Global : Node
         "got caught up in a cord",
         "suffered permanent alderations",
         "had acute limbic dissociation",
-        "had the life sapped from it"
+        "had the life sapped from it",
+        "was gnarly by the end",
+        "was kindling with dead",
+        "lost it's bark from the bite",
+        "was petrified with fear",
     };
 
     /// <summary>
