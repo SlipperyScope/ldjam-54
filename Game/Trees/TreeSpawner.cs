@@ -17,6 +17,8 @@ public partial class TreeSpawner : Node
     /// </summary>
     [Export]
     private Single SpawnInterval = 2.5f;
+    private Single NormalInterval;
+    private Boolean TreeGrowthBypass = false;
 
     [Export]
     private Node2D Stumptown;
@@ -26,6 +28,7 @@ public partial class TreeSpawner : Node
 
     private Double Time = 0d;
     private Double Next = 0f;
+    private Double Lose = Double.MaxValue;
 
     private RandomSound2D GrowSound;
     private RandomSound2D Felled;
@@ -36,25 +39,47 @@ public partial class TreeSpawner : Node
 
         GrowSound = GetNodeOrNull<RandomSound2D>($"{nameof(GrowSound)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(GrowSound)}");
         Felled = GetNodeOrNull<RandomSound2D>($"{nameof(Felled)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(Felled)}");
-
+        
+        NormalInterval = SpawnInterval;
         Next = SpawnInterval;
-        this.Global().Won += Winning;
+
+        this.Global().FireLit += FireLit;
     }
 
-    private void Winning(Object sender, EventArgs e)
+    private void FireLit(Object sender, EventArgs e)
     {
-        SpawnInterval = 0f;
+        GrowFast();
     }
 
     private void Camp_AreaEntered(Area2D area)
     {
         //GD.Print(area, area.GetParent());
 
-        GD.PushWarning("Lol, you lose");
-        GD.Print("💀💀 Lol, you lose 💀💀");
+        //GD.PushWarning("Lol, you lose");
+        Lose = Time + 4d;
+        Next = Double.MaxValue;
+    }
+
+    private void GrowFast()
+    {
         SpawnInterval = 0f;
         Next = 0f;
-        Camp.CampArea.AreaEntered -= Camp_AreaEntered;
+        TreeGrowthBypass = true;
+        foreach(var tree in Trees.Values)
+        {
+            tree.OverrideSpawn = true;
+        }
+    }
+
+    private void GrowSlow()
+    {
+        SpawnInterval = NormalInterval;
+        Next = Time + SpawnInterval;
+        TreeGrowthBypass = false;
+        foreach (var tree in Trees.Values)
+        {
+            tree.OverrideSpawn = false;
+        }
     }
 
     public override void _Ready()
@@ -69,6 +94,18 @@ public partial class TreeSpawner : Node
                 Trees.Add(name, tree);
                 tree.Felled += OnTreeFelled;
             }
+        }
+    }
+
+    public override void _Input(InputEvent e)
+    {
+        if (e.IsActionPressed("SpeedTree"))
+        {
+            GrowFast();
+        }
+        else if (e.IsActionReleased("SpeedTree"))
+        {
+            GrowSlow();
         }
     }
 
@@ -93,27 +130,43 @@ public partial class TreeSpawner : Node
 
         if (Trees.Count is 0)
         {
-            Camp.AllTreesDeadNow();
+            CallDeferred(nameof(SendWin));
         }
     }
+
+    private void SendWin() => this.Global().WinGame();
 
     public override void _PhysicsProcess(Double delta)
     {
         Time += delta;
 
+        var dohalf = true;
+
         if (Time >= Next && Trees.Count > 0)
         {
-            var seed = Trees.Values.ToList()[(Int32)(GD.Randi() % Trees.Count)].Spread();
+            var attempts = TreeGrowthBypass ? 100 : 0;
+            do
+            {
+                Seed seed = Trees.Values.ToList()[(Int32)(GD.Randi() % Trees.Count)].Spread();
 
-            if (seed is not null)
-            {
-                SpawnTree(seed);        
-                Next += SpawnInterval;
-            }
-            else
-            {
-                Next += SpawnInterval / 2f;
-            }
+                if (seed is not null)
+                {
+                    SpawnTree(seed);
+                    dohalf = false;
+                    break;
+                }
+
+            } while (--attempts > 0);
+            Next += dohalf is true ? SpawnInterval / 2f : SpawnInterval;
+        }
+
+        if (Time >= Lose)
+        {
+            GD.Print("💀💀 Lol, you lose 💀💀");
+            this.Global().LoseGame();
+            GrowFast();
+            Next = 0f;
+            Camp.CampArea.AreaEntered -= Camp_AreaEntered;
         }
     }
 
@@ -128,9 +181,11 @@ public partial class TreeSpawner : Node
         var tree = seed.Scene.InstantiateOrNull<ITree>() ?? throw new InvalidCastException(nameof(seed));
         var name = GetRandomUniqueName();
         tree.TreeName = name;
+        tree.OverrideSpawn = TreeGrowthBypass;
         Trees.Add(name, tree);
         tree.Felled += OnTreeFelled;
         AddChild(tree.AsNode);
+        MoveChild(tree.AsNode, 0);
         tree.AsNode.GlobalTransform = seed.GlobalTransform;
         GrowSound.GlobalPosition = tree.AsNode.GlobalPosition;
         GrowSound.Play();

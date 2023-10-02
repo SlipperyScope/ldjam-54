@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Game.GamJamScripts;
+using Game.NotTreesOrAxes;
 using Godot;
 
 namespace Game;
@@ -31,8 +32,15 @@ public partial class Global : Node
 
     public Player player;
 
-    public event EventHandler Won;
-    public void Win() => Won?.Invoke(this, new());
+    public event EventHandler FireLit;
+    public void LightFire() => FireLit?.Invoke(this, new());
+
+    public event EventHandler GameWin;
+    public void WinGame() => GameWin?.Invoke(this, new());
+
+    public event EventHandler GameLose;
+
+    public void LoseGame() => GameLose?.Invoke(this, new());
 
     /// <summary>
     /// Testing
@@ -40,6 +48,39 @@ public partial class Global : Node
     public void HelloWorld() => GD.Print("Hello World");
 
     private readonly Dictionary<String, Int32> MurderLog = new();
+
+    public List<DeceasedData> Logbook
+    {
+        get
+        {
+            var maxLength = MurderLog.Count is not 0 ? MurderLog.Keys.Max(x => x.Length) : 0;
+            return MurderLog.Select(kvp => new DeceasedData(kvp.Key.PadLeft(maxLength), GetRandomDeathText(), kvp.Value)).ToList();
+        }
+    }
+
+    private String GetRandomDeathText() => Messages[(Int32)(GD.Randi() % Messages.Count)];
+
+    private List<String> Messages = new()
+    {
+        "had it's life cut short",
+        "was smashed to a pulp",
+        "made like a tree and died",
+        "fell to it's death",
+        "pondered but then was stumped",
+        "got back to it's roots",
+        "learned to do the splits",
+        "logged off for the last time",
+        "didn't even have a stake in it",
+        "got fired for being high",
+        "had it's chops busting",
+        "lumbered around too long",
+        "was slowly chipped away",
+        "got hacked apart... slowly",
+        "was torn limb from limb",
+        "looked out and sawdust",
+        "was really torn up over it",
+        "found it's finaly resting place"
+    };
 
     /// <summary>
     /// Logs a murder in the murder log

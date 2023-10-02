@@ -19,13 +19,13 @@ public partial class Camp : Node2D
     private Boolean Winning = false;
 
     [Export]
-    private Single WinSpeed = 1f;
-
+    private Single WinSpeed = 2f;
+        
     /// <summary>
     /// Amount of damage the win bubble does to trees per beat
     /// </summary>
     [Export]
-    private Single WinDamage = 1f;
+    private Single WinDamage = 1.5f;
 
     public override void _Ready()
     {
@@ -34,19 +34,32 @@ public partial class Camp : Node2D
         WinBubble.AreaEntered += Overlap;
         Sprite = GetNodeOrNull<AnimatedSprite2D>($"%{nameof(Sprite)}") ?? throw new ArgumentNullException($"There is no {nameof(AnimatedSprite2D)} named {nameof(Sprite)}");
         this.Global().Beat += OnBeat;
-        this.Global().Won += Win;
+        this.Global().FireLit += LightFire;
+        this.Global().GameWin += GameWon;
     }
 
-    private void Win(Object sender, EventArgs e)
+    private void GameWon(Object sender, EventArgs e)
+    {
+        Winning = false;
+        PrintWin();
+    }
+
+    private void LightFire(Object sender, EventArgs e)
     {
         LightFire();
+        
+        GetNode<AnimationPlayer>("DeNoobAnimation").Stop();
+        GetNode<Area2D>("NoobZone").Scale = Vector2.One / 2f;
     }
 
     private void OnBeat(Object sender, EventArgs e)
     {
         foreach(var tree in Harm.ToList())
         {
-            tree.DoAHit((Int32)WinDamage);
+            if (tree is not null && Harm.Contains(tree))
+            {
+                tree.DoAHit(Mathf.CeilToInt(WinDamage));
+            }
         }
     }
 
@@ -78,18 +91,18 @@ public partial class Camp : Node2D
     public void LightFire()
     {
         Sprite.Frame = 1;
+        WinBubble.GetNode<Sprite2D>("FireRing").Visible = true;
         Winning = true;
     }
-
-    
 
     public override void _Process(Double delta)
     {
 
         if (Winning is true)
         {
-            var scale = WinBubble.Scale.X + WinSpeed * (Single)delta;
-            WinBubble.Scale = new(scale, scale);
+            var scale = WinBubble.Scale.X;
+            var next = Mathf.Lerp(scale, scale + WinSpeed, (Single)delta);
+            WinBubble.Scale = new(next, next);
         }
     }
 }

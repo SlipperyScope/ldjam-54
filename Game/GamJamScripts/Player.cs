@@ -16,7 +16,7 @@ public partial class Player : CharacterBody2D
     private AudioStreamPlayer2D chopSfx;
     private RandomSound2D Steppies;
     private RandomSound2D Splasher;
-    int speed = 400;
+    int speed = 500;
     float accel = 7.0f;
 
     private double fishDuration = 5f;
@@ -56,7 +56,9 @@ public partial class Player : CharacterBody2D
         axeSprite = GetNode<Sprite2D>("Axe");
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
+
+    private Single LastSpeed;
+
     public override async void _Process(double delta)
     {
         Time += delta;
@@ -69,10 +71,9 @@ public partial class Player : CharacterBody2D
         }
 
         var currentSpeed = Velocity.Length();
-
-        if (currentSpeed > 0.01f)
+        if (currentSpeed > 35f)
         {
-            NextStep = (1d - 1d / speed * Velocity.Length()) * (MaxStepInterval - MinStepInterval) + MinStepInterval + PrevStep;
+            NextStep = (1d - 1d / speed * currentSpeed) * (MaxStepInterval - MinStepInterval) + MinStepInterval + PrevStep;
         }
         else
         {
@@ -157,7 +158,7 @@ public partial class Player : CharacterBody2D
         if (@event.IsActionPressed("Horn"))
         {
             GetNode<AudioStreamPlayer2D>($"Horn").Play();
-            this.Global().Win();
+            this.Global().LightFire();
         }
 
         if (@event is InputEventMouseButton eventMouseButton)

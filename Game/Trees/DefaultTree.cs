@@ -18,6 +18,7 @@ public interface ITree
     public Seed Spread();
     public Node2D AsNode { get; }
     public String TreeName { get; set; }
+    public Boolean OverrideSpawn { get; set; }
     public Area2D Bounds { get; }
 }
 
@@ -35,6 +36,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     private Treesource Config;
 
     public String TreeName { get; set; } = null;
+    public Boolean OverrideSpawn { get; set; } = false;
 
     public Area2D Bounds { get; private set; }
     private AnimatedSprite2D Sprite;
@@ -47,7 +49,7 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
     {
         _ = Config ?? throw new NullReferenceException(nameof(Config));
         TreeName ??= Config.Name;
-        HitsRemaining = Config.HitPointsAtSpawn;
+        HitsRemaining = OverrideSpawn ? Config.HitPoints : Config.HitPointsAtSpawn;
         this.Global().Beat += Wiggle;
     }
 
@@ -93,8 +95,11 @@ public partial class DefaultTree : Node2D, ITree, ITargetable
 
     public Seed Spread()
     {
-        if (Growing is true) return null;
-        if (HitsRemaining / Config.HitPoints is < .8f) return null;
+        if (OverrideSpawn is false)
+        {
+            if (Growing is true) return null;
+            if (HitsRemaining / Config.HitPoints is < .8f) return null;
+        }
 
         for (var attempt = 0; attempt < Config.SpawnAttempts; attempt++)
         {

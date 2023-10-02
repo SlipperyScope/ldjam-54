@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bc1lvxesf3hu7"]
+[gd_scene load_steps=10 format=3 uid="uid://bc1lvxesf3hu7"]
 
 [ext_resource type="Script" path="res://NotTreesOrAxes/Camp.cs" id="1_0ufm5"]
 [ext_resource type="Texture2D" uid="uid://ddwh4y3luy18a" path="res://art/placeholder/camp.png" id="1_w8p0o"]
 [ext_resource type="Texture2D" uid="uid://bqd12c34ovi33" path="res://art/placeholder/camp_lit.png" id="2_261fg"]
+[ext_resource type="Texture2D" uid="uid://bhofk8jjl362h" path="res://art/placeholder/FireRing.png" id="4_jdbxp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jen5d"]
 animations = [{
@@ -44,7 +45,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cqvg8"]
-radius = 106.0
+radius = 60.407
 
 [node name="Camp" type="Node2D"]
 script = ExtResource("1_0ufm5")
@@ -82,6 +83,7 @@ vertices = PackedVector2Array(177, 102, 170, 90, 173, 76, 188, 68, 200, 76, 204,
 [node name="NoobZone" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NoobZone"]
+position = Vector2(14, 0)
 polygon = PackedVector2Array(-1273, 311, -1021, -120, -598, -405, 20, -478, 687, -362, 1143, -9, 1317, 427, 1307, 911, -1301, 880)
 
 [node name="DeNoobAnimation" type="AnimationPlayer" parent="."]
@@ -92,6 +94,15 @@ libraries = {
 
 [node name="WinBubble" type="Area2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(55, 34)
+scale = Vector2(0.335, 0.335)
+collision_layer = 4
+collision_mask = 4
+
+[node name="FireRing" type="Sprite2D" parent="WinBubble"]
+visible = false
+scale = Vector2(0.125926, 0.125926)
+texture = ExtResource("4_jdbxp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WinBubble"]
 shape = SubResource("CircleShape2D_cqvg8")

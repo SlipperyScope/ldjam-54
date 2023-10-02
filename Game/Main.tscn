@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=11 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
 [ext_resource type="PackedScene" uid="uid://diknhotxscvj" path="res://Trees/DefaultTree.tscn" id="6_f5ltf"]
 [ext_resource type="PackedScene" uid="uid://b05utxmn0yeun" path="res://NotTreesOrAxes/Ocean.tscn" id="7_sfqmv"]
+[ext_resource type="PackedScene" uid="uid://ceolucpvtc56c" path="res://NotTreesOrAxes/Deceased.tscn" id="9_j67ld"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
@@ -27,16 +28,17 @@ texture = ExtResource("2_21owk")
 [node name="Stumptown" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.3, 0.3)
+zoom = Vector2(0.5, 0.5)
+
+[node name="Camp" parent="." instance=ExtResource("4_wxoxb")]
+position = Vector2(-204, 190)
+WinSpeed = 6.0
 
 [node name="Player" parent="." instance=ExtResource("3_l4o8g")]
 
 [node name="MoveArea" type="NavigationObstacle2D" parent="."]
 position = Vector2(400, -120)
 vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
-
-[node name="Camp" parent="." instance=ExtResource("4_wxoxb")]
-position = Vector2(-204, 190)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_460aj")
@@ -47,8 +49,8 @@ autoplay = true
 Stumptown = NodePath("../Stumptown")
 Camp = NodePath("../Camp")
 
-[node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
-position = Vector2(-2, -1341)
+[node name="DefaultTree3" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
+position = Vector2(-218, -565)
 
 [node name="ExclusionZone" type="Area2D" parent="TreeSpawner"]
 
@@ -58,3 +60,15 @@ polygon = PackedVector2Array(3316, 1821, 3348, -2274, -3522, -2414, -3579, 2126,
 [node name="Ocean" parent="." instance=ExtResource("7_sfqmv")]
 position = Vector2(-63, -36)
 scale = Vector2(3.12123, 3.12123)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DeceasedBoard" parent="CanvasLayer" instance=ExtResource("9_j67ld")]
+unique_name_in_owner = true
+visible = false
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 588.0
+offset_bottom = 1048.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
