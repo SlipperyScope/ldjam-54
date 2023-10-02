@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7x3lall8mq6k"]
+[gd_scene load_steps=10 format=3 uid="uid://b7x3lall8mq6k"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
-[ext_resource type="Texture2D" uid="uid://ddwh4y3luy18a" path="res://art/placeholder/camp.png" id="3_ikhby"]
 [ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_l4o8g"]
+[ext_resource type="PackedScene" uid="uid://bc1lvxesf3hu7" path="res://NotTreesOrAxes/Camp.tscn" id="4_wxoxb"]
 [ext_resource type="PackedScene" uid="uid://dgwcb1egqi7gb" path="res://Trees/TreeSpawner.tscn" id="5_71gnm"]
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
 [ext_resource type="PackedScene" uid="uid://diknhotxscvj" path="res://Trees/DefaultTree.tscn" id="6_f5ltf"]
@@ -13,31 +13,6 @@
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)])
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q2xc8"]
-radius = 185.261
-height = 558.489
-
-[sub_resource type="Animation" id="Animation_5cnkn"]
-resource_name = "enharden"
-length = 60.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GGEZ:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 60),
-"transitions": PackedFloat32Array(2.00001, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6p0y"]
-_data = {
-"enharden": SubResource("Animation_5cnkn")
-}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vygcg")
@@ -54,49 +29,14 @@ texture = ExtResource("2_21owk")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.3, 0.3)
 
-[node name="Camp" type="Sprite2D" parent="."]
-position = Vector2(-137, 295)
-rotation = 0.154377
-texture = ExtResource("3_ikhby")
-metadata/_edit_group_ = true
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Camp"]
-vertices = PackedVector2Array(-242, -1, -193, -104, -94, -72, -161, 74, -258, 13)
-
-[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="Camp"]
-vertices = PackedVector2Array(-30, 63, -34, 1, 1, -45, 72, -57, 120, -30, 149, 22, 132, 78, 85, 108, 14, 111)
-
-[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="Camp"]
-vertices = PackedVector2Array(175, 101, 176, 82, 194, 76, 196, 90, 189, 104)
-
-[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="Camp"]
-vertices = PackedVector2Array(216, 23, 155, -64, 169, -73, 232, 18)
-
-[node name="Area2D" type="Area2D" parent="Camp"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camp/Area2D"]
-rotation = -1.4526
-shape = SubResource("CapsuleShape2D_q2xc8")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Camp"]
-autoplay = "enharden"
-libraries = {
-"": SubResource("AnimationLibrary_k6p0y")
-}
-
-[node name="GGEZ" type="Area2D" parent="Camp"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Camp/GGEZ"]
-position = Vector2(-11.5323, -74.1081)
-polygon = PackedVector2Array(-154.986, -462.671, 587.482, -523.56, 1497.1, -349.357, 2168.57, 30.9229, 2562.75, 892.569, -2249.88, 1794.31, -2278.03, 1171.22, -1925.55, 470.68, -1397.06, 36.2469, -660.344, -328.368)
-
 [node name="Player" parent="." instance=ExtResource("3_l4o8g")]
 
 [node name="MoveArea" type="NavigationObstacle2D" parent="."]
 position = Vector2(400, -120)
 vertices = PackedVector2Array(-2326, 1196, -2152, 1054, -1866, 1044, -1690, 1086, -1383, 910, -1058, 926, -959, 963, -227, 785, 157, 851, 456, 977, 817, 987, 873, 1038, 1089, 1012, 1324, 1108, 1404, 1076, 1508, 1166, 1508, -956, -2323, -956)
+
+[node name="Camp" parent="." instance=ExtResource("4_wxoxb")]
+position = Vector2(-204, 190)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_460aj")
@@ -105,7 +45,7 @@ autoplay = true
 
 [node name="TreeSpawner" parent="." node_paths=PackedStringArray("Stumptown", "Camp") instance=ExtResource("5_71gnm")]
 Stumptown = NodePath("../Stumptown")
-Camp = NodePath("../Camp/Area2D")
+Camp = NodePath("../Camp")
 
 [node name="DefaultTree" parent="TreeSpawner" instance=ExtResource("6_f5ltf")]
 position = Vector2(-2, -1341)

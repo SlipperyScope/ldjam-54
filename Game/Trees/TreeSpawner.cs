@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.NotTreesOrAxes;
 using Game.Sounds;
 using Godot;
 
@@ -21,7 +22,7 @@ public partial class TreeSpawner : Node
     private Node2D Stumptown;
 
     [Export]
-    private Area2D Camp;
+    private Camp Camp;
 
     private Double Time = 0d;
     private Double Next = 0f;
@@ -37,8 +38,12 @@ public partial class TreeSpawner : Node
         Felled = GetNodeOrNull<RandomSound2D>($"{nameof(Felled)}") ?? throw new NullReferenceException($"Could not find {nameof(RandomSound2D)} named {nameof(Felled)}");
 
         Next = SpawnInterval;
+        this.Global().Won += Winning;
+    }
 
-        Camp.AreaEntered += Camp_AreaEntered;
+    private void Winning(Object sender, EventArgs e)
+    {
+        SpawnInterval = 0f;
     }
 
     private void Camp_AreaEntered(Area2D area)
@@ -49,11 +54,12 @@ public partial class TreeSpawner : Node
         GD.Print("💀💀 Lol, you lose 💀💀");
         SpawnInterval = 0f;
         Next = 0f;
-        Camp.AreaEntered -= Camp_AreaEntered;
+        Camp.CampArea.AreaEntered -= Camp_AreaEntered;
     }
 
     public override void _Ready()
     {
+        Camp.CampArea.AreaEntered += Camp_AreaEntered;
         foreach( var child in GetChildren())
         {
             if (child is ITree tree)
@@ -83,6 +89,11 @@ public partial class TreeSpawner : Node
         else
         {
             GD.Print("Hmmm... 🤔");
+        }
+
+        if (Trees.Count is 0)
+        {
+            Camp.AllTreesDeadNow();
         }
     }
 

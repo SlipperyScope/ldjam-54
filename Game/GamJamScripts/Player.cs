@@ -154,6 +154,12 @@ public partial class Player : CharacterBody2D
 
     public override void _Input(InputEvent @event)
     {
+        if (@event.IsActionPressed("Horn"))
+        {
+            GetNode<AudioStreamPlayer2D>($"Horn").Play();
+            this.Global().Win();
+        }
+
         if (@event is InputEventMouseButton eventMouseButton)
         {
             if (eventMouseButton.IsReleased() && !fishing)
