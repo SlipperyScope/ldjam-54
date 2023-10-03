@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://Main.cs" id="1_vygcg"]
 [ext_resource type="Texture2D" uid="uid://c3vnk2mgaxpuh" path="res://art/background.png" id="2_21owk"]
 [ext_resource type="PackedScene" uid="uid://w4vghr15lnc" path="res://adamJunk/Player.tscn" id="3_l4o8g"]
-[ext_resource type="PackedScene" path="res://NotTreesOrAxes/Camp.tscn" id="4_wxoxb"]
+[ext_resource type="PackedScene" uid="uid://bc1lvxesf3hu7" path="res://NotTreesOrAxes/Camp.tscn" id="4_wxoxb"]
 [ext_resource type="PackedScene" uid="uid://dgwcb1egqi7gb" path="res://Trees/TreeSpawner.tscn" id="5_71gnm"]
 [ext_resource type="AudioStream" uid="uid://blbq25ktjelng" path="res://Sounds/Music/Clearing.mp3" id="6_460aj"]
 [ext_resource type="PackedScene" uid="uid://diknhotxscvj" path="res://Trees/DefaultTree.tscn" id="6_f5ltf"]
 [ext_resource type="PackedScene" uid="uid://b05utxmn0yeun" path="res://NotTreesOrAxes/Ocean.tscn" id="7_sfqmv"]
 [ext_resource type="PackedScene" uid="uid://bsm21pxt0kdkc" path="res://NotTreesOrAxes/CardSelect.tscn" id="9_pgswi"]
 [ext_resource type="PackedScene" uid="uid://ceolucpvtc56c" path="res://NotTreesOrAxes/Menus/Deceased.tscn" id="10_4oh6k"]
-[ext_resource type="PackedScene" uid="uid://bnigheswvpveg" path="res://NotTreesOrAxes/Inventory.tscn" id="11_f3u0f"]
+[ext_resource type="PackedScene" path="res://NotTreesOrAxes/Inventory.tscn" id="11_f3u0f"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5f7bl"]
 vertices = PackedVector2Array(-1917, -1073, 1911, -1080, 1913, 1083, -1921, 1072)
